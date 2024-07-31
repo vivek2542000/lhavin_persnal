@@ -1,0 +1,122 @@
+<!----------------COntent start-------------->
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+            <!-- <div class="login-form-content"> -->
+            {{!-- <form action="javascript:(0);"> --}}
+            <h2 class="form-title">View Logs</h2>
+
+
+
+            <!--  <div class="form-define-head">
+                <h4><span>step 3</span>Other Links</h4>
+              </div> -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="main-file">
+                  <table class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>Assign Date</th>
+                        <th>PDF Name</th>
+                        <th>Description</th>
+                        <th>Assigned By</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{assignPdf.date}}</td>
+
+                        <td>
+                          <form action="/teacher/teacher-assigned-view-pdf" method="POST" target="_Blank">
+                            <input hidden type="text" value="{{assignPdf.pdfurl}}" name="pdfurl">
+                            <button><i class="fa fa-file-pdf-o mr-5"></i>{{assignPdf.pdfname}}</button>
+                          </form>
+                          {{!-- <a href="/teacher/teacher-assigned-log-view-pdf?pdf={{assignPdf.pdfurl}}" target="_blank"><i
+                              class="fa fa-file-pdf-o mr-5"></i>{{assignPdf.pdfname}}</a> --}}
+                        </td>
+                        <td>{{assignPdf.teacherDescription}}</td>
+                        <td>Admin</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+                <div class="table-responsive mt-20 text-center">
+                  <h4>Edited History From {{username}}</h4>
+                  <table class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>PDF Name</th>
+                        <th>Description</th>
+                        <th>Last Edited</th>
+                        <th>Edited By</th>
+                        {{!-- <th>Status</th> --}}
+                      </tr>
+                    </thead>
+                    <tbody>
+
+
+                      {{#each edit_history}}
+                        <tr>
+                          {{!-- <td>
+                            <form id="gettingassignid" action="/admin/view-pdf" method="POST">
+                              {{#if pdfOfTeacher}}
+                              <a href={{pdfOfTeacher}} target="_blank"><i
+                                  class="fa fa-file-pdf-o mr-5"></i>Edited_{{pdfname}} - {{pdf_create_time}}</a>
+                              {{else}}
+
+                              <input hidden name="url" value={{editPdfOfTeacher}}>
+                              <button type="submit" class="view-btn">Edited_{{pdfname}} - {{pdf_create_time}}</button>
+
+                              {{/if}}
+                            </form>
+                          </td> --}}
+
+                          <td>
+                            <form action="/teacher/view-pdf" method="POST">
+                              <input hidden name="url" value={{editPdfOfTeacher}}>
+                              {{#if pdfOfTeacher}}
+                                <a href="/teacher/teacher-assigned-log-view-pdf?pdf={{pdfOfTeacher}}" target="_blank"><i
+                                    class="view-btn"></i>Edited_{{pdfname}} -
+                                  {{pdf_create_time}}</a>
+                              {{else}}
+
+                                <button type="submit" class="view-btn">Edited_{{pdfname}} - {{pdf_create_time}}</button>
+                              {{/if}}
+                            </form>
+                          </td>
+
+
+
+
+                          <td>{{teacherDescription}}</td>
+                          <td>{{date}} {{time}}</td>
+                          <td>{{firstname}} {{lastname}}</td>
+                          {{!-- <td align="center">
+                            <table>
+                              <tr>
+                                <td><a class="edit-btn">{{status}}</a></td>
+                              </tr>
+                            </table>
+                          </td> --}}
+                        </tr>
+                      {{/each}}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+            {{!-- </form> --}}
+          </div>
+        </div>
+        <!--  </div> -->
+      </div>
+    </div>
+  </div>
+</section>

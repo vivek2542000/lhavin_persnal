@@ -1,0 +1,455 @@
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jewish Day School|Teacher Sign up</title>
+    <link rel="icon" href="/images/logo t.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Country-Selecter-with-Flags-flagstrap/dist/css/flags.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/flexslider.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.9/css/intlTelInput.css"
+      rel="stylesheet"
+      media="screen"
+    />
+    <link rel="stylesheet" href="/stylesheets/school.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css"/>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="login-form-div" style="margin-top: 3%;">
+        <div class="col-md-7 sign-up-form">
+          <form  method="POST" action="/teacher/teacher-sign-up"  id="sign_id">
+            <div class="logo text-center">
+              <img src="/images/logo-new.jpg" />
+            </div>
+            <h5 class="text-center">Teacher Sign up Form</h5>{{#if message}}
+              <div class="alert alert-danger">
+                {{#each message}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </div>
+            {{/if}}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input type="text" class="form-control" name="firstname" id="firstName"  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input type="text" class="form-control" name="lastname" id="LastName"/>
+                </div>
+               </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" class="form-control" name="email" id="email"/>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group newslectbox">
+                  <label>School Name</label>
+                  <select
+                    name="schoolid"
+                    class="form-control multipleselect"
+                    id="select-country"
+                  >
+                    <option value="0">Select School</option>
+                    {{#each rows}}
+                      <option value={{id}}>{{schoolName}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" name="password" id="password"/>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="confirmpassword"
+                    id="confirmPassword"
+                  />
+                </div>
+              </div>
+                <div class="col-md-12">
+                      <div class="form-group">
+                        <label>What is the name of the Judaic principal or curriculum coordinator in your school who oversees the L'havin program?</label>
+                       <textarea  name="JudaicName" rows="2" cols="70"  class="form-control" id="JudaicName" ></textarea>
+                      </div>
+                    </div>
+                      <div class="col-md-12">
+                      <div class="form-group">
+                        <label>What is the email address of the Judaic principal or curriculum coordinator in your school who oversees the L'havin program?</label>
+                  <input type="email" class="form-control" name="JudaicEmail" id="JudaicEmail" />
+                       
+                      </div>
+                    </div>
+                      <div class="col-md-12">
+                <div class="form-group newslectbox">
+                  <label>Which version of the L'havin workbooks do you need?</label>
+                  <select
+                    name="workbooks"
+                    class="form-control multipleselect"
+                    id="selectBooks"
+                  >
+                    <option value="0">Select version</option>
+                    <option value="Standard">Standard</option>
+                    <option value="Ivrit">Ivrit</option>
+                  </select>
+                </div>
+                     </div>
+                     <div class="col-md-12 form-group">
+              <span class="text-success" >Please indicate the workbooks you need to access: </span>
+              </br></br>
+              <span>PLEASE NOTE: You will only be given access to books which your school has purchased for this year.</span>
+               </div>
+                 <div class="col-md-12">
+                <div class="form-group newslectbox">
+                  <select  multiple="multiple"  name="books" class="form-control multipleselect" id="books"    {{!-- id="select-country" --}}
+                  >
+                    
+                    <option value="Hachana L'Chumash - Script Version">Hachana L'Chumash - Script Version</option>
+                    <option value="Hachana L'Chumash - English Version">Hachana L'Chumash - English Version</option>
+                     <option value="Hachana L'Chumash - Print Version">Hachana L'Chumash - Print Version</option>
+                    <option value="Hachana L'Chumash - Ivrit Version">Hachana L'Chumash - Ivrit Version</option>
+                    <option value="פָּרָשַׁת לֶךְ-לְךָ 2AB">פָּרָשַׁת לֶךְ-לְךָ 2AB</option>
+                    <option value="פָּרָשַׁת לֶךְ-לְךָ 2C">פָּרָשַׁת לֶךְ-לְךָ 2C</option>
+                    <option value="פָּרָשַׁת לֶךְ-לְךָ 2D">פָּרָשַׁת לֶךְ-לְךָ 2D</option>
+                    <option value="פָּרָשַׁת וַיֵּרָא 3A">פָּרָשַׁת וַיֵּרָא 3A</option>
+                    <option value="פָּרָשַׁת וַיֵּרָא 3B">פָּרָשַׁת וַיֵּרָא 3B</option>
+                    <option value="פָּרָשַׁת וַיֵּרָא 3C">פָּרָשַׁת וַיֵּרָא 3C</option>
+                    <option value="פָּרָשַׁת חַיֵּי שָׁרָה 4A">פָּרָשַׁת חַיֵּי שָׁרָה 4A</option>
+                    <option value="פָּרָשַׁת חַיֵּי שָׁרָה 4B">פָּרָשַׁת חַיֵּי שָׁרָה 4B</option>
+                    <option value="פָּרָשַׁת חַיֵּי שָׁרָה 4C">פָּרָשַׁת חַיֵּי שָׁרָה 4C</option>
+                    <option value="פָּרָשַׁת תּוֹלְדוֹת 5A">פָּרָשַׁת תּוֹלְדוֹת 5A</option>
+                    <option value="פָּרָשַׁת תּוֹלְדוֹת 5B">פָּרָשַׁת תּוֹלְדוֹת 5B</option>
+                    <option value="פָּרָשַׁת וַיֵּצֵא 6A">פָּרָשַׁת וַיֵּצֵא 6A</option>
+                    <option value="פָּרָשַׁת וַיֵּצֵא 6B">פָּרָשַׁת וַיֵּצֵא 6B</option>
+                    <option value="פָּרָשַׁת וַיִּשְׁלַח 7A">פָּרָשַׁת וַיִּשְׁלַח 7A</option>
+                    <option value="פָּרָשַׁת וַיִּשְׁלַח 7B">פָּרָשַׁת וַיִּשְׁלַח 7B</option>
+                    <option value="פָּרָשַׁת וַיֵּשֶׁב 8A">פָּרָשַׁת וַיֵּשֶׁב 8A</option>
+                    <option value="פָּרָשַׁת וַיֵּשֶׁב 8B">פָּרָשַׁת וַיֵּשֶׁב 8B</option>
+                    <option value="פָּרָשַׁת מִקֵּץ 9A">פָּרָשַׁת מִקֵּץ 9A</option>
+                    <option value="פָּרָשַׁת מִקֵּץ 9B">פָּרָשַׁת מִקֵּץ 9B</option>
+                    <option value="פָּרָשַׁת וַיִּגַּשׁ 10A">פָּרָשַׁת וַיִּגַּשׁ 10A</option>
+                    <option value="פָּרָשַׁת וַיִּגַּשׁ 10B">פָּרָשַׁת וַיִּגַּשׁ 10B</option>
+                    <option value="פָּרָשַׁת וַיְּחִי 11">פָּרָשַׁת וַיְּחִי 11</option>
+                    <option value=" 12פָּרָשַׁת שְׁמוֹת"> 12פָּרָשַׁת שְׁמוֹת</option>
+                    <option value="פָּרָשַׁת וָאֵרָא 13">פָּרָשַׁת וָאֵרָא 13</option>
+                    <option value="14 פָּרָשַׁת בא">14 פָּרָשַׁת בא</option>
+                    <option value="סֵפֶּר יְהוֹשֻׁעַ">סֵפֶּר יְהוֹשֻׁעַ</option>
+                    <option value="סֵפֶּר שמואל אי">סֵפֶּר שמואל אי</option>
+                    <option value="Grade 3 - Chumash Skills Review Workbook">Grade 3 - Chumash Skills Review Workbook</option>
+                    <option value="Grade 5 - Chumash Skills Review Workbook C">Grade 5 - Chumash Skills Review Workbook C</option>
+                    <option value="Grade 5 - Chumash Skills Review Workbook D">Grade 5 - Chumash Skills Review Workbook D</option>
+                    <option value="Grade 5 - Chumash Skills Review Workbook E">Grade 5 - Chumash Skills Review Workbook E</option>
+                    <option value="Skills workbook">Skills workbook</option>
+                    <option value="DWD Bracha Achrona">DWD Bracha Achrona</option>
+                    <option value="DWD Shemoneh Esrei">DWD Shemoneh Esrei</option>
+
+                  </select>
+                </div>
+              </div> 
+              <div class="col-md-12 text-center mt-20">
+                <button class="main-btn" type="submit" >Sign Up</button>
+              </div>
+            </div>
+            <div class="row mt-10">
+              <div class="col-md-7">
+                <span class="all-acc">Already have An Account?</span><button><a
+                    class="link-btn"
+                    href="/teacher/login"
+                  >&nbsp;Login</a></button>
+              </div>
+              <div class="col-md-5 text-center">
+                <button><a class="link-btn" href="/">Back</a></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="forgot-password">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4 class="text-center form-heading">Forgot Password</h4>
+            <form>
+              <div class="row mt-20">
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Enter E-mail</label>
+                    <input type="E-mail" name="email" class="form-control" />
+                  </div>
+                </div>
+                <div class="col-md-12 text-center mt-20">
+                  <button class="main-btn" type="submit">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/113b70814b.js"></script>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    ></script>
+    <script src="/js/slick.js"></script>
+    <script src="/js/jquery.flagstrap.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/noisy/1.2/jquery.noisy.min.js"
+    ></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.9/js/intlTelInput.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.9/js/intlTelInput.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.9/js/utils.js"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/4.2.5/jquery.bootstrap-touchspin.min.js"
+    ></script>
+
+    <script type="text/javascript">
+
+      $(document).ready(function () { $('.multipleselect').select2({
+      placeholder: "select workbooks " }); });
+    </script>
+    <style>
+      .newslectbox span.select2-selection.select2-selection--single { height:
+      34px !important; }
+    </style>
+
+    <script>
+      jQuery(document).ready(function () { jQuery('#datepicker').datepicker({
+      format: 'dd-mm-yyyy', startDate: '+1d' }); });
+    </script>
+    <script>
+      $("input[class='touchspin']").TouchSpin();
+    </script>
+    <script>
+      var telInput = $("#phone"), errorMsg = $("#error-msg"), validMsg =
+      $("#valid-msg"); // initialise plugin telInput.intlTelInput({
+      allowExtensions: true, formatOnDisplay: true, autoFormat: true,
+      autoHideDialCode: true, autoPlaceholder: true, defaultCountry: "in",
+      ipinfoToken: "yolo", nationalMode: false, numberType: "MOBILE",
+      //onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'], preferredCountries:
+      ['in', 'ae', 'qa', 'om', 'bh', 'kw', 'ma'], preventInvalidNumbers: true,
+      separateDialCode: true, initialCountry: "in", geoIpLookup: function
+      (callback) { $.get("http://ipinfo.io", function () { },
+      "jsonp").always(function (resp) { var countryCode = (resp && resp.country)
+      ? resp.country : ""; callback(countryCode); }); }, utilsScript:
+      "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.9/js/utils.js"
+      }); var reset = function () { telInput.removeClass("error");
+      errorMsg.addClass("hide"); validMsg.addClass("hide"); }; // on blur:
+      validate telInput.blur(function () { reset(); if ($.trim(telInput.val()))
+      { if (telInput.intlTelInput("isValidNumber")) {
+      validMsg.removeClass("hide"); } else { telInput.addClass("error");
+      errorMsg.removeClass("hide"); } } }); // on keyup / change flag: reset
+      telInput.on("keyup change", reset);
+    </script>
+    <script>
+      $(function () { $('.selectpicker').selectpicker(); });
+    </script>
+    <script>
+      $("#single").select2({ placeholder: "Select", allowClear: true });
+      $("#currency").select2({ placeholder: "Select", allowClear: true });
+      $("#language").select2({ placeholder: "Select", allowClear: true });
+      $("#language-2").select2({ placeholder: "Select", allowClear: true });
+      $("#country").select2({ placeholder: "Select", allowClear: true });
+      $("#country-2").select2({ placeholder: "Select", allowClear: true });
+    </script>
+
+    {{!-- <script>
+      $(document).ready(function () { $(".set > a").on("click", function () { if
+      ($(this).hasClass("active")) { $(this).removeClass("active"); $(this)
+      .siblings(".content") .slideUp(200); $(".set > a i")
+      .removeClass("fa-angle-down") .addClass("fa-angle-up"); } else { $(".set >
+      a i") .removeClass("fa-angle-down") .addClass("fa-angle-up"); $(this)
+      .find("i") .removeClass("fa-angle-up") .addClass("fa-angle-down"); $(".set
+      > a").removeClass("active"); $(this).addClass("active");
+      $(".content").slideUp(200); $(this) .siblings(".content") .slideDown(200);
+      } }); });
+    </script> --}}
+
+    <script>
+      $(document).ready(function () {
+  $(".set > a").on("click", function () {
+    if ($(this).hasClass("active")) {
+      $(this).removeClass("active");
+      $(this).siblings(".content").slideUp(200);
+      $(".set > a i").removeClass("fa-angle-down").addClass("fa-angle-up");
+    } else {
+      $(".set > a i").removeClass("fa-angle-down").addClass("fa-angle-up");
+      $(this).find("i").removeClass("fa-angle-up").addClass("fa-angle-down");
+      $(".set > a").removeClass("active");
+      $(this).addClass("active");
+      $(".content").slideUp(200);
+      $(this).siblings(".content").slideDown(200);
+    }
+  });
+});
+    </script>
+
+    <script>
+      $('#basic').flagStrap(); $('.select-country').flagStrap({ countries: {
+      "US": "USD", "AU": "AUD", "CA": "CAD", "SG": "SGD", "GB": "GBP", },
+      buttonSize: "btn-sm", buttonType: "btn-info", labelMargin: "10px",
+      scrollable: false, scrollableHeight: "350px" });
+      $('#advanced').flagStrap({ buttonSize: "btn-lg", buttonType:
+      "btn-primary", labelMargin: "20px", scrollable: false, scrollableHeight:
+      "350px" }); //test //test
+    </script>
+
+  
+
+  <script>
+    document.getElementById("sign_id").addEventListener("submit", function(event){
+   const formData = document.querySelector('#sign_id').elements;
+   const sin_firstName = formData.firstname.value
+   const sin_lastName = formData.lastname.value
+   const sin_email = formData.email.value
+   const sin_JudaicName = formData.JudaicName.value
+   const sin_JudaicEmail = formData.JudaicEmail.value
+   //const sin_books = formData.books.value
+     const sin_password = formData.password.value
+   const sin_confirmPassword = formData.confirmPassword.value
+   const sin_workbooks = formData.selectBooks.value
+   //const sin_schoolId = formData.schoolid.value
+    const sin_books = Array.from(formData.books.selectedOptions).map(option => option.value);
+ 
+
+
+
+   localStorage.setItem('sin_firstName', (sin_firstName));
+   localStorage.setItem('sin_lastName', (sin_lastName));
+   localStorage.setItem('sin_email', (sin_email));
+   localStorage.setItem('sin_JudaicName', (sin_JudaicName));
+   localStorage.setItem('sin_JudaicEmail', (sin_JudaicEmail));
+   //localStorage.setItem('sin_books', (sin_books));
+   localStorage.setItem('sin_password', (sin_password));
+   localStorage.setItem('sin_confirmPassword', (sin_confirmPassword));
+   localStorage.setItem('sin_workbooks', (sin_workbooks));
+    //  localStorage.setItem('sin_schoolId', (sin_schoolId));
+     localStorage.setItem('sin_books', JSON.stringify(sin_books));
+
+});
+
+const sin_fName = localStorage.getItem("sin_firstName")
+const sin_lName = localStorage.getItem("sin_lastName")
+const sinEmail = localStorage.getItem("sin_email")
+const sinJudaicName = localStorage.getItem("sin_JudaicName")
+const sinJudaicEmail = localStorage.getItem("sin_JudaicEmail")
+//const sin_books = localStorage.getItem("sin_books")
+//const sin_books = JSON.parse(localStorage.getItem("sin_books"));
+const sin_password = localStorage.getItem("sin_password")
+const sin_confirmPassword = localStorage.getItem("sin_confirmPassword")
+const sinWorkbooks = localStorage.getItem("sin_workbooks")
+
+//const sin_schoolId = localStorage.getItem("sin_schoolId")
+ const sin_books = JSON.parse(localStorage.getItem("sin_books"));
+    if (sin_books) {
+      const selectBox = document.getElementById('books');
+      for (const option of selectBox.options) {
+        option.selected = sin_books.includes(option.value);
+      }
+    }
+
+document.getElementById('firstName').value = sin_fName;
+document.getElementById('LastName').value = sin_lName;
+document.getElementById('email').value = sinEmail;
+document.getElementById('JudaicName').value = sinJudaicName;
+document.getElementById('JudaicEmail').value = sinJudaicEmail;
+//document.getElementById('books').value = sin_books;
+document.getElementById('password').value = sin_password;
+document.getElementById('confirmPassword').value = sin_confirmPassword;
+document.getElementById('selectBooks').value = sinWorkbooks;
+//document.getElementById('sin_schoolId').value = sin_schoolId;
+
+if (sin_books) {
+  const selectBox = document.getElementById('books');
+  sin_books.forEach(value => {
+    const option = selectBox.querySelector(`option[value="${value}"]`);
+    if (option) {
+      option.selected = true;
+    }
+  });
+}
+    
+  </script>
+  
+  </body>
+
+</html>

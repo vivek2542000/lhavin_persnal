@@ -1,0 +1,15 @@
+<form id="statsForm" action="/teacher/pdf-status-update" method="POST">
+    <input hidden value={{pdfid}} name="pdfid">
+    <input hidden value={{currentassignid}} name="currentassignid">
+
+    <button id="subtbn" type="submit" class="btn btn-primary">Mark your work As
+        Complete</button>
+</form>
+
+{{#if docurl}}
+<iframe src="{{docurl}}" width='100%' height='750px' allow="microphone; camera" id="document-iframe"></iframe>
+{{/if}}
+
+{{#if kpdfurl}}
+<iframe src="{{kpdfurl}}" width='100%' height='750px' allow="microphone; camera" id="document-iframe"></iframe>
+{{/if}}

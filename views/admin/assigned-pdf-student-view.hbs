@@ -1,0 +1,83 @@
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+            <!-- <div class="login-form-content"> -->
+            <form action="javascript:(0);">
+              <div class="head-title">
+                <h2 class="form-title">Total Assign Pdf</h2>
+
+              </div>
+
+              <!--  <div class="form-define-head">
+                <h4><span>step 3</span>Other Links</h4>
+              </div> -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th hidden> id</th>
+                          <th>Assign Date</th>
+                          <th>Assign by Teacher</th>
+                          <th>PDF Name</th>
+                          <th>Description</th>
+                          <th>Last Edited</th>
+                          {{!-- <th>Action</th> --}}
+                        </tr>
+                      </thead>
+                      {{#each rows}}
+                        <tbody>
+                          <tr>
+                            <td hidden>{{assignid}}</td>
+                            <td>{{dateAssignedByTeacher}}</td>
+                            <td>{{teacher_firstname}} {{teacher_lastname}}</td>
+                            <td> <a href="{{pdfForStudent}}" target="_blank">Edited_{{pdfname}} -
+                                {{pdf_create_time}}</a>
+
+
+                              {{#if studentDescription}}
+                            <td>
+                              {{studentDescription}}</td>
+                      {{else}}
+                        <td>
+                          NA</td>{{/if}}
+
+
+                        {{#if lastedit}}
+                          <td>
+                            {{lastedit}}</td>
+                        {{else}}
+                          <td>
+                            NA</td>
+                        {{/if}}
+
+                        {{!-- <td align="center">
+                            <table>
+                              <tr>
+                                <td><a class="edit-btn">Edit</a></td>
+                                <!--  <td><a href="view-assigned-pdf-logs.php" class="view-btn" title="View History"><i class="fa fa-eye"></i></a></td> -->
+                                <!-- <td><a href="" class="assign-btn" data-toggle="modal" data-target="#assign-pdf">Assign</a></td> -->
+                              </tr>
+                            </table>
+                          </td> --}}
+                          </tr>
+                        </tbody>
+                      {{/each}}
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+        <!--  </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+</div>

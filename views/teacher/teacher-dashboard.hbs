@@ -1,0 +1,128 @@
+<section id="content-wrapper" style="background-color: #fff!important;">
+  <div class="container-fluid">{{#if message}}
+      <div class="alert alert-success">
+        {{#each message}}
+          <p>{{this}}</p>
+        {{/each}}
+      </div>
+    {{/if}}
+    <div class="row pb-40">
+      <div class="col-md-6 wd-50" style="text-align: left;">
+        <p class="dash-head" style="margin: 0;">Welcome : <span
+            style="display: inline-block; margin-bottom: 0;">{{username}} </span>
+        </p>
+      </div>
+      <div class="col-md-6 wd-50">
+        <p class="dash-head" style="text-align: right;margin-bottom: 0;">Last Login : <span
+            style="display: inline-block; ">
+            {{#if lastlogintime}}
+              <td>
+                {{lastlogintime}}</td>
+            {{else}}
+              <td>
+                NA</td>
+            {{/if}}
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 wd-25">
+        <a href="/teacher/my-students">
+          <div class="counter-card ">
+            <div class="count-icon text-center bg-red"> <i class="fa fa-users fa-2x"></i>
+            </div>
+            <div class="count-text">
+              <h2 class="timer count-title count-number" data-to="{{totalstudents}}" data-speed="1500"></h2>
+              <p class="">Total Students</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 wd-25">
+        <a href="/teacher/assigned-by-admin">
+          <div class="counter-card ">
+            <div class="count-icon text-center bg-brown"> <i class="fa fa-file-pdf-o fa-2x"></i>
+            </div>
+            <div class="count-text">
+             
+              <h2 class="timer count-title count-number" data-to="{{totalpdfs}}" data-speed="1500"></h2>
+              <p class="">Total PDF</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <hr>
+    <section class="">
+      <div class="tour-head">
+
+      </div>
+      <div class="row mt-20">
+        <h5><b>Recently assigned to students</b></h5>
+        <div class="table-responsive mt-20">
+          <table id="example23" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+              <tr>
+                <th>Assign Date</th>
+                <th>PDF Name</th>
+                <th>Assigned By</th>
+                <th>Description</th>
+                {{!-- <th>Last Edited</th> --}}
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            {{#each recentAssignedPdf}}
+              <tbody>
+                <tr>
+                  <td>{{dateAssignedByTeacher}}</td>
+                  <td>
+
+                    <form action="/teacher/teacher-dashboard-view-pdf" method="POST" target="_Blank">
+                      <input hidden type="text" value="{{pdfForStudent}}" name="pdfurl">
+                      <button><i class="fa fa-file-pdf-o mr-5"></i>Edited_{{pdfname}} -
+                        {{pdf_create_time}}</button>
+                    </form>
+                    {{!-- <a href="/teacher/teacher-view-pdf?pdf={{pdfForStudent}}" target="_Blank"><i
+                        class="fa fa-file-pdf-o mr-5"></i>Edited_{{pdfname}}
+                      -
+                      {{pdf_create_time}}
+
+                    </a> --}}
+                  </td>
+                  <td>{{teacher_name}}</td>
+                  {{#if studentDescription}}
+                    <td>
+                      {{studentDescription}}</td>
+                  {{else}}
+                    <td>
+                      NA</td>
+                  {{/if}}
+                  {{!-- <td>03/07/2020</td> --}}
+                  <td align="center">
+                    <table>
+                      <tr>
+                        {{!-- <td><a href="" class="edit-btn" data-toggle="modal" data-target="#edit-popup">Edit</a></td> --}}
+                        <td>
+                          <form action="/teacher/teacher-dashboard-view-pdf" method="POST" target="_Blank">
+                            <input hidden type="text" value="{{pdfForStudent}}" name="pdfurl">
+                            <button class="view-btn">View</button>
+                          </form>
+                          {{!-- <a href="/teacher/teacher-view-pdf?pdf={{pdfForStudent}}" target="_blank" class="view-btn"
+                            title="View Logs">View
+                          </a> --}}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            {{/each}}
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

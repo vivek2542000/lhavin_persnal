@@ -1,0 +1,53 @@
+  <form id="imageForm" action="/teacher/upload" method="POST" enctype="multipart/form-data">
+            <input id="photo" type="file" name="photo" onchange="encode();">
+            <label for="photo"></label>
+          </form>
+          <div id="dummy">
+          </div>
+          <div>
+            {{!-- <form id="imageForm" action="/teacher/upload" method="POST">
+              <te type="text" style="width:100%;height:500px;" id="txt" name="image"></te>
+              <button type="submit" id="but">Button</button>
+            </form> --}}
+          </div>
+          <div>
+
+          </div>
+          <script>
+            document.getElementsByName("myinput").onchange = function () {
+              console.log("hi");
+              document.getElementById("imageForm").submit();
+            }
+          </script>
+          {{!-- <script>
+            function encode() {
+              var selectedfile = document.getElementById("myinput").files;
+              if (selectedfile.length > 0) {
+                var imageFile = selectedfile[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function (fileLoadedEvent) {
+                  var srcData = fileLoadedEvent.target.result;
+                  var newImage = document.createElement('img');
+                  newImage.src = srcData;
+                  console.log(srcData)
+                  document.getElementById("dummy").innerHTML = newImage.outerHTML;
+                  document.getElementById("txt").value = document.getElementById("dummy").innerHTML;
+                }
+                fileReader.readAsDataURL(imageFile);
+              }
+            } 
+          </script> --}}
+
+        </div>
+
+        {{!-- <script>
+          function getImage(id) {
+            console.log("id " + id)
+            var values = document.getElementById('imageUpload').value
+            var values1 = document.getElementsByName('imageUpload').value
+            var file = document.getSelection('imageUpload')
+            console.log("1 " + values)
+            console.log("2 " + values1)
+            console.log("3 " + file)
+          }
+        </script> --}}

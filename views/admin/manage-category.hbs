@@ -1,0 +1,230 @@
+<style>
+    .naming {
+        display: none;
+    }
+
+    .progress {
+        margin: 10px;
+        width: 700px;
+    }
+</style>
+
+{{#if message}}
+<div class="alert alert-success">
+    {{#each message}}
+    <p>{{this}}</p>
+    {{/each}}
+</div>
+{{/if}}
+
+<form action="/admin/assign-music" method="POST">
+    <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Manage Music Category</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="dropdownMenus col-md-12">
+
+                        <div class='form-group'>
+                            <label for='brandFilter'>music NAME</label>
+                            <select name="musicname" id='musicname' class='form-control multipleselect select' multiple>
+                                <option>Choose Music</option>
+                                {{#each rows}}
+
+                                <option value="{{this.id}}"> {{this.musicName }} - {{this.music_create_time}}
+                                </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="cars" value="2" id="teacher-name">
+                            <label for="teacher-name">Teacher</label>
+                            <input type="radio" name="cars" value="3" id="group-name">
+                            <label for="group-name">Group</label>
+                        </div>
+
+                        <div class='form-group desc' id="Cars2" style="display: none;">
+                            <label for='colorFilter'>Teacher Name</label>
+                            <select multiple="multiple" name="teachername" class='form-control multipleselect'>
+                                {{!-- <option>Choose Teacher</option> --}}
+                                {{#each teacherlist}}
+                                <option value="{{this.id}}">{{this.firstname}} {{this.lastname}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        <div class='form-group desc' id="Cars3" style="display: none;">
+                            <label for='colorFilter'>Teacher Group Name</label>
+                            <input hidden type="text" name="group" value="group">
+                            <select multiple="multiple" name="teachername" class='form-control multipleselect'>
+                                {{!-- <option>Choose Teacher</option> --}}
+                                {{#each group}}
+                                <option value="{{this.id}}">{{this.groupname}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class='form-group'>
+                            <label for='colorFilter'>Description</label>
+                            <textarea name="textarea" id="textarea" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="new-main-btn" data-dismiss="modal">Close</button>
+                    <button type="submit" class="new-main-btn">Assign
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<section id="content-wrapper">
+    <div class="container-fluid">
+        <div class="row p-t-b-20">
+            <div class="col-md-12">
+                <div class="form-card no-b">
+                    <div class="login-form-card">
+
+                        <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Music Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="" action="/admin/save-category" method="post" >
+            <div class="form-group">
+                <label for="title" >Category Title</label>
+                <input type="text" placeholder="Enter Category Title..."  class="form-control" id="title" name="title" />
+            </div>
+            <div class="form-group">
+                <button class="main-btn  btn-xs zz-modal" >
+                    Save Category
+                </button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+                        {{!-- <div class="upload-new-pdf upload-new-pdfnew">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Create Category
+                        </button>
+                        </div> --}}
+
+                        <div class="head-title">
+                            <h2 class="form-title">Manage Music Category</h2>
+                            <div class="upload-new-pdf upload-new-pdfnew"  style=" ">
+                        <button type="button" class="main-btn  btn-xs zz-modal" data-toggle="modal" data-target="#exampleModal">
+                        Create Category
+                        </button>
+                        </div>
+                            {{!-- <button class="main-btn  btn-xs zz-modal" 
+                            data-toggle="modal"
+                            data-target="#con-close-modal" >Assign Music</button> --}}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Category</th>
+                                                <th>Date time</th>
+                                                {{!-- <th>Status</th> --}}
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each categoryData}}
+                                            <tr>
+                                                <td>{{cat_id}}</td>
+                                                <td>{{title}}</td>
+                                                <td>{{datetime}}</td>
+                                                <td>
+                                                 <form action="/admin/delete-music-category" method="POST">
+                                                    <input type="hidden" name="id" value="{{cat_id}}">
+                                                    <button type="submit"
+                                                        class="delete-btn fa fa-trash-o"></button>
+                                                </form>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--  </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+
+    function abc() {
+        var file_data = $('#music').prop('files');
+
+        var formdata = new FormData();
+        //        formdata.append('music', fil);
+        for (let i = 0; i < file_data.length; i++) {
+            formdata.append(file_data[i].name, file_data[i])
+        }
+        console.log({ file_data })
+
+        $.ajax({
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            xhr: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        $('.progress2').html('<b class="progress-bar progress-bar-voilet progress-bar-striped active"> File Uploading : ' + (Math.round(percentComplete * 100)) + '% </b>');
+                    }
+                }, false);
+                console.log("xhrxhrxhr", xhr)
+                return xhr;
+
+            },
+            type: 'POST',
+            url: "/admin/music-upload",
+            data: formdata,
+            success: function (data) {
+                window.location.replace("http://lhavin.com/admin/music-dashboard");
+                console.log(data)
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[name$='cars']").click(function () {
+            var test = $(this).val();
+            $(".desc").hide();
+            $("#Cars" + test).show();
+        });
+    });
+</script>

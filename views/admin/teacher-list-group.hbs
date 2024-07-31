@@ -1,0 +1,335 @@
+<style>
+  .naming {
+    display: none;
+  }
+</style>
+
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+            {{#if message}}
+              <div class="alert alert-success">
+                {{#each message}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </div>
+            {{/if}}
+            <!-- <div class="login-form-content"> -->
+            <div class="head-title">
+              <h2 class="form-title">Teacher Group's</h2>
+              <button class="main-btn  btn-xs zz-modal" data-toggle="modal" data-target="#con-close-modal">Create
+                Teacher
+                Group</button>
+            </div>
+            <form action="/admin/add-teacher-to-group" method="POST">
+              <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+
+                      <h4 class="modal-title">Create Group</h4>
+                    </div>
+                    <div class="modal-body">
+                      {{!-- <div class="form-group row">
+          
+                                  <div class="col-sm-8">
+                                      <input type="number" name="id" hidden class="invoice-imt">
+                                  </div>
+                              </div> --}}
+
+                      <div class="dropdownMenus col-md-12">
+
+                        <div class='form-group'>
+                          <label for='brandFilter'>Group Name</label>
+                          <input type="text" name="groupname">
+                        </div>
+                        {{!-- <div class="form-group">
+                          <input type="radio" name="cars" value="2" id="teacher-name">
+                          <label for="teacher-name">Teacher</label>
+                          <input type="radio" name="cars" value="3" id="group-name">
+                          <label for="group-name">Group</label>
+                        </div> --}}
+                        <div class='form-group'>
+                          <label>Teacher Name</label>
+                          <select multiple="multiple" name="teachername" class='form-control multipleselect'>
+                            {{#each group}}
+                              <option value="{{this.id}}">{{this.firstname}} {{this.lastname}}</option>
+                            {{/each}}
+                          </select>
+                        </div>
+
+                        <div hidden class='form-group'>
+                          <label for='colorFilter'>Description</label>
+                          <textarea name="textarea" id="textarea" class="form-control"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="new-main-btn" data-dismiss="modal">Close</button>
+                      <button type="submit" class="new-main-btn">Create
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </form>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive">
+
+                  <table id="example" class="table table-striped table-bordered display">
+                    <thead>
+                      <tr>
+                        <th hidden>id</th>
+                        <th>Name</th>
+                        <th>Total Teachers</th>
+                        <th>Action</th>
+                        {{!-- <th hid>View Group Members</th> --}}
+                        {{!-- <th hidden>firstname</th>
+                        <th hidden>lastname</th> --}}
+
+                        {{!-- <th>Email</th>
+                        <th>School Name</th> --}}
+
+                        {{!-- <th>Assigned PDF</th>
+                        <th>status</th>
+                        <th>Registration Date</th> --}}
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {{#each school}}
+                        <tr>
+
+                          <td hidden class="invoice-imt">{{id}}</td>
+                          <td>{{groupname}}</td>
+                          <td>
+                            <table>
+                              <tr>
+                                <td>
+                                  {{totalteacher}}
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+
+                          <td class="text-center">
+                            <table>
+                              <tr>
+                                <td align="center">
+                                  <form id="form4" action="/admin/view-teacher-group-members" method="POST">
+                                    {{!-- <input type="hidden" name="id" id="teacherstatus" value="{{this.id}}"> --}}
+                                    <button class="view-btn fa fa-eye" name="groupID" value="{{id}}">
+                                    </button>
+                                    <script>
+                                                                                               // document.getElementById("teacherstatus").onclick = function () {
+                                                                                                 // console.log("hi");
+                                                                                                //  document.getElementById("form4").submit();
+                                                                                               // }
+                                    </script>
+                                  </form>
+
+                                </td>
+                                <td hidden> <button class="edit-btn btn-xs zz-modal con-close-modal"
+                                    data-target="#con-close-modal-{{id}}" data-toggle="modal">Edit</button></td>
+                                <form action="/admin/edit-teacher-group" method="POST">
+                                  <div id="con-close-modal-{{id}}" class="modal fade" tabindex="-1" role="dialog"
+                                    aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+
+                                          <h4 class="modal-title">Edit Group</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="form-group row">
+                                            <div class="col-sm-8">
+                                              <input type="number" hidden name="id" value={{id}} class="invoice-imt">
+                                            </div>
+
+                                          </div>
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Group Name</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm invoice-amt"
+                                                name="firstname" value="{{groupname}}" Placeholder="Enter First name"
+                                                onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+                                          <div class="dropdownMenus col-md-12">
+                                            <div class='form-group'>
+                                              <label>Teacher Name</label>
+                                              <select multiple="multiple" name="teachername"
+                                                class='form-control multipleselect'>
+                                                {{!-- {{#each ../slected_teacher_ids}} --}}
+                                                {{!-- <option value="{{../slected_teacher_ids}}">
+                                                  {{../slected_teacher_ids}}
+                                                </option> --}}
+                                                {{#each ../group}}
+                                                  <option value="{{this.id}}">{{this.firstname}} </option>
+                                                {{/each}}
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class=" modal-footer">
+                                            <button type="button" class="main-btn" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="main-btn">Update
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </form>
+
+                                <td>
+                                  <form id="form3" action="/admin/delete-group" method="POST">
+                                    <input type="hidden" name="id" id="deletegroup" value="{{id}}">
+                                    <button class="delete-btn fa fa-trash-o" style="color: red;"></button>
+                                    <script>
+                                      document.getElementById("deleteteacher").onclick = function () {
+                                        document.getElementById("form3").submit();
+                                      }
+                                    </script>
+                                  </form>
+                                </td>
+
+                              </tr>
+                            </table>
+                          </td>
+                          {{!-- <td><a href="/admin/assigned-pdf-teacher-view">5</a></td> --}}
+
+
+
+
+                          {{!-- <td>{{create_time}}</td> --}}
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  </div> -->
+        </div>
+      </div>
+    </div>
+</section>
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+  integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+  integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<script>
+  $(document).ready(function () {
+    //$(".zz-modal").click(function() {
+    //  $("#con-close-modal").modal('show');
+    //});
+
+    $('.con-close-modal').on('show.bs.modal', function (e) {
+      var _button = $(e.relatedTarget); // Button that triggered the modal
+      var _row = _button.parents("tr");
+
+    });
+  });
+</script>
+
+<script>
+  $(':radio').change(function () {
+    console.log('New star rating: ' + this.value);
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    var buttonAdd = $("#add-button2");
+    var buttonRemove = $("#remove-button2");
+    var className = ".dynamic-input2";
+    var count = 0;
+    var field = "";
+    var maxFields = 50;
+
+    function totalFields() {
+      return $(className).length;
+    }
+
+    function addNewField() {
+      count = totalFields() + 1;
+      field = $("#dynamic-input-2").clone();
+      field.attr("id", "dynamic-input-" + count);
+      field.children("label").text("Field " + count);
+      field.find("input").val("");
+      $(className + ":last").after($(field));
+    }
+
+    function removeLastField() {
+      if (totalFields() > 1) {
+        $(className + ":last").remove();
+      }
+    }
+
+    function enableButtonRemove() {
+      if (totalFields() === 2) {
+        buttonRemove.removeAttr("disabled");
+        buttonRemove.addClass("shadow-sm");
+      }
+    }
+
+    function disableButtonRemove() {
+      if (totalFields() === 1) {
+        buttonRemove.attr("disabled", "disabled");
+        buttonRemove.removeClass("shadow-sm");
+      }
+    }
+
+    function disableButtonAdd() {
+      if (totalFields() === maxFields) {
+        buttonAdd.attr("disabled", "disabled");
+        buttonAdd.removeClass("shadow-sm");
+      }
+    }
+
+    function enableButtonAdd() {
+      if (totalFields() === (maxFields - 1)) {
+        buttonAdd.removeAttr("disabled");
+        buttonAdd.addClass("shadow-sm");
+      }
+    }
+
+    buttonAdd.click(function () {
+      addNewField();
+      enableButtonRemove();
+      disableButtonAdd();
+    });
+
+    buttonRemove.click(function () {
+      removeLastField();
+      disableButtonRemove();
+      enableButtonAdd();
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("input[name$='cars']").click(function () {
+
+      var test = $(this).val();
+
+      $(".desc").hide();
+      $("#Cars" + test).show();
+    });
+  });
+</script>

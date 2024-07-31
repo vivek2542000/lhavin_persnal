@@ -1,0 +1,197 @@
+<!----------------COntent start-------------->
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+            <!-- <div class="login-form-content"> -->
+            {{! <form action="javascript:(0);"> }}
+            <h2 class="form-title">View Logs</h2>
+
+            {{#if message}}
+              <div class="alert alert-danger">
+                {{#each message}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </div>
+            {{/if}}
+
+            <!--  <div class="form-define-head">
+                <h4><span>step 3</span>Other Links</h4>
+              </div> -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="main-file">
+                  <table
+                    class="table table-striped table-bordered"
+                    style="width:100%"
+                  >
+                    <thead>
+                      <tr>
+                        <th hidden> id</th>
+                        <th>Assign Date</th>
+                        <th>PDF Name</th>
+                        <th>Description</th>
+                        <th>Assigned By</th>
+                        <th>Re-assign</th>
+                        <th>KAMI pdf</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each assignPdf}}
+                        <tr>
+                          <td hidden>{{assignid}}</td>
+                          <td>{{date}}</td>
+                          <td><a href={{pdfurl}} target="_blank"><i
+                                class="fa fa-file-pdf-o mr-5"
+                              ></i>{{pdfname}}
+                              -
+                              {{pdf_create_time}}</a>
+                          </td>
+                          <td>{{teacherDescription}}</td>
+                          <td>Admin</td>
+                          <td>
+                            {{#if  pdfOfTeacher}}
+                            {{else}}
+                            {{#if isReassigned}}
+                            {{else}}
+                            {{#if lasteditByTeacher}}
+                            <form action="/admin/re-assign/{{assignid}}" method="POST">
+                              <button
+                                class="main-btn"
+                                type="submit"
+                              >Re-assign</button>
+                            </form>
+                            {{else}}
+                            {{/if}}
+                            {{/if}}
+                            {{/if}} 
+                          </td>
+                          <td>
+                            {{#if editPdfOfTeacher}}
+                            <a href={{editPdfOfTeacher}}target="_blank" >View</a>
+                            {{else}}
+                            <div></div>
+                            {{/if}}
+                          </td>
+                        </tr>
+                      {{/each}}
+
+                    </tbody>
+                  </table>
+                </div>
+                <div class="table-responsive mt-20 text-center">
+                  <h4>Edited History From {{taechername}}</h4>
+                  <table
+                    class="table table-striped table-bordered"
+                    style="width:100%"
+                  >
+                    <thead>
+                      <tr>
+                        <th hidden>id</th>>
+                        <th>PDF Name</th>
+                        <th>Description</th>
+                        <th>Last Edited</th>
+                        <th>Edited By</th>
+                        <th>View</th>
+                        {{! <th>Status</th> }}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{!-- {{#each edit_history}}
+                        <tr>
+                          <td hidden>{{assignid}}</td>
+                          <td>
+                            <a><i
+                                class="fa fa-file-pdf-o mr-5"
+                              ></i>Edited_{{pdfname}}
+                              -
+                              {{pdf_create_time}}</a>
+                          </td>
+
+                          <td>{{teacherDescription}}</td>
+                          <td>{{pehdate}} {{pehtime}}</td>
+                          <td>{{firstname}} {{lastname}}</td>
+                          <td>
+                            <form action="/admin/view-pdf" method="POST">
+                              <input
+                                hidden
+                                name="url"
+                                value={{editPdfOfTeacher}}
+                              />
+                              {{#if pdfOfTeacher}}
+                                <a href={{pdfOfTeacher}} target="_blank"><i
+                                    class="view-btn"
+                                  ></i>View</a>
+                              {{else}}
+
+                                <button
+                                  type="submit"
+                                  class="view-btn"
+                                >View</button>
+                              {{/if}}
+                            </form>
+                          </td>
+                          
+                        </tr>
+                      {{/each}} --}}
+                        {{#each newResult}}
+                        <tr>
+                          <td >Key: {{@key}} </td>
+
+                          {{#each this }}
+                          <tr>
+                          <td hidden>{{assignid}} </td>
+                          <td>
+                            <a><i
+                                class="fa fa-file-pdf-o mr-5"
+                              ></i>Edited_{{pdfname}}
+                              -
+                              {{pdf_create_time}}</a>
+                          </td>
+
+                          <td>{{teacherDescription}}</td>
+                          <td>{{pehdate}} {{pehtime}}</td>
+                          <td>{{firstname}} {{lastname}}</td>
+                          <td>
+                            <form action="/admin/view-pdf" method="POST">
+                              <input
+                                hidden
+                                name="url"
+                                value={{editPdfOfTeacher}}
+                              />
+                              {{#if pdfOfTeacher}}
+                                <a href={{pdfOfTeacher}} target="_blank"><i
+                                    class="view-btn"
+                                  ></i>View</a>
+                              {{else}}
+
+                                <button
+                                  type="submit"
+                                  class="view-btn"
+                                >View</button>
+                              {{/if}}
+                            </form>
+                          </td>
+                          </tr>
+                          
+                          {{/each}}
+                          
+                        </tr>
+                      {{/each}}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+            {{! </form> }}
+          </div>
+        </div>
+        <!--  </div> -->
+      </div>
+    </div>
+  </div>
+</section>

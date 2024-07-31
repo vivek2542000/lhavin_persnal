@@ -1,0 +1,640 @@
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+            <!-- <div class="login-form-content"> -->
+            <div class="head-title">
+              <h2 class="form-title">Students</h2>
+              <div class="three-btn">
+                <input type="button" class="btn btn-danger" value="Delete Students" onclick="deleteRows()"
+                  style="padding: 9px; border-radius:10px;">
+
+                <div class="">
+                  <button class="upload-pdf-btn fa fa-user con-close-modal" data-toggle="modal"
+                    data-target="#con-close-modalAdd"> Add
+                    Student</button>
+                </div>
+                <form action="/admin/add-student" method="POST">
+                  <div id="con-close-modalAdd" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+
+                          <h4 class="modal-title">Add Student</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-group row">
+
+
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-4 control-label required-field">First Name </label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control input-sm invoice-amt" name="firstname"
+                                Placeholder="Enter First name" name="firstname" required
+                                onkeypress=" return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-4 control-label required-field">Last Name </label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control input-sm invoice-bmt" name="lastname"
+                                Placeholder="Enter Last name" required onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-4 control-label">Email / Username</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control input-sm invoice-emt" name="email"
+                                Placeholder="Enter email" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-4 control-label">Password</label>
+                            <div class="col-sm-8">
+                              <input autocomplete="off" type="password" class="form-control input-sm invoice-emt"
+                                name="password" Placeholder="Enter email" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-4 control-label">Mobile</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control input-sm invoice-fmt" name="mobile"
+                                Placeholder="Enter mobile number" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class='form-group row'>
+                            <label class="col-sm-4 control-label required-field">School Name </label>
+                            <div class="col-sm-8">
+                              <select name="schoolid" id="all_school" class='form-control' required>
+                                <option disabled selected value="">Select School</option>
+                                {{#each school_data}}
+                                  <option value="{{this.id}}">{{this.schoolName}}</option>
+                                {{/each}}
+                              </select>
+                            </div>
+                          </div>
+                          <div class='form-group row'>
+                            <label class="col-sm-4 control-label required-field">Teacher Name </label>
+                            <div class="col-sm-8">
+                              <select class="form-control" id="all_teacher" name="teacherid" required>
+                                <option disabled selected>Select Teacher</option>
+                                {{!-- {{#each teachers}}
+                                                <option value={{id}}>{{firstname}} {{lastname}}</option>
+                                                {{/each}} --}}
+                              </select>
+                            </div>
+                          </div>
+                          <div class='form-group row'>
+                            <label class="col-sm-4 control-label required-field">Class Name </label>
+                            <div class="col-sm-8">
+                              <select class="form-control" id="all_class" name="classid">
+                                <option disabled selected>Select Class</option>
+                                {{!-- {{#each classname}}
+                                                <option value={{id}}>{{this.className}}</option>
+                                                {{/each}} --}}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-4 control-label">Enrollment Number</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="enrollmentnumber" class="form-control input-sm cheque-amt"
+                                Placeholder="Enter enrollment number" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="main-btn" data-dismiss="modal">Close</button>
+                          <button type="submit" class="main-btn">Add
+                          </button>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </form>
+
+                <div class="">
+                  <button class="upload-pdf-btn fa fa-download" type="submit">
+                    <a href="https://lhavin.com/csv/Jewesh_Sample_csv_(7).csv" target="_blank">Download Sample</a>
+                  </button>
+                </div>
+                <div class="">
+                  <form id="pdfform" action="/admin/csv-upload" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="pdf" id="pdf" multiple="multiple" onchange="this.form.submit();">
+                    <label for="pdf"></label>
+                    {{!-- onchange="$('.ajax_modal').show(); --}}
+                    {{!-- <button type="submit" class="btn btn-primary">
+                                                              upload
+                                                          </button> --}}
+                    <span class="upload-pdf-btn fa fa-upload">&nbsp; Upload CSV</span>
+                  </form>
+                  {{!-- <input type="file" onchange="readURLee(this);" multiple="multiple"> --}}
+                </div>
+              </div>
+            </div>
+            {{#if message}}
+              <div class="alert alert-success">
+                {{#each message}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </div>
+            {{/if}}
+            {{#if emessage}}
+              <div class="alert alert-danger">
+                {{#each emessage}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </div>
+            {{/if}}
+
+
+
+            <!--  <div class="form-define-head">
+                <h4><span>step 3</span>Other Links</h4>
+              </div> -->
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive">
+
+                  <table id="example" class="table table-striped table-bordered nowrap display">
+                    <thead>
+                      <tr>
+                        <th><input id="selectall" type="checkbox" /></th>
+                        <th hidden>Status</th>
+
+                        <th>Student Name</th>
+                        {{!-- <th hidden>Status</th>
+                        <th hidden>Status</th> --}}
+                        <th>Email / Username</th>
+                        <th>Password</th>
+                        <th>Mobile Number</th>
+                        <th>School Name</th>
+                        <th>Teacher Name</th>
+                        <th>Class Name</th>
+                        <th>Enrollment No.</th>
+                        <th>Action</th>
+                        <th>Assigned PDF</th>
+                        <th>Status</th>
+                        <th>Registration Date</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {{#each rows}}
+                        <tr id="somerow">
+                          <td><input class="selectedId" type="checkbox" name="delBox" value="{{id}}" /></td>
+                          <td hidden>{{id}}</td>
+                          <td>{{firstname }} {{lastname}}</td>
+                          {{!-- <td class="invoice-amt" hidden>{{firstname }} </td>
+                        <td class="invoice-bmt" hidden>{{lastname}}</td> --}}
+                          <td>{{email}}</td>
+                          <td>{{password}}</td>
+
+                          <td>{{mobile}}</td>
+                          <td>{{school_name}}</td>
+                          <td>{{teacher_name}}</td>
+                          <td>{{class_name}}</td>
+                          <td>{{enrollmentnumber}}</td>
+
+                          <td class="text-center">
+                            <table>
+                              <tr>
+                                <td><button class="edit-btn btn-xs zz-modal con-close-modal" data-toggle="modal"
+                                    data-target="#con-close-modal-{{id}}">Edit</button></td>
+                                <form action="/admin/edit-student" method="POST">
+                                  <div id="con-close-modal-{{id}}" class="modal fade" tabindex="-1" role="dialog"
+                                    aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+
+                                          <h4 class="modal-title">Edit Student</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="form-group row">
+
+                                            <div class="col-sm-8">
+                                              <input type="number" name="id" value={{id}} hidden class="invoice-imt">
+                                            </div>
+                                            <div class="col-sm-8">
+                                              <input type="text" name="oldemail" value={{email}} hidden
+                                                class="invoice-imt">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">First Name</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm invoice-amt"
+                                                name="firstname" Placeholder="Enter First name" value="{{firstname}}"
+                                                required onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Last Name</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm invoice-bmt"
+                                                name="lastname" Placeholder="Enter Last name" value="{{lastname}}"
+                                                required onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Email / Username</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm invoice-emt" name="email"
+                                                value="{{email}}" Placeholder="Enter email" required
+                                                onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Password</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm" name="password"
+                                                value="{{password}}" Placeholder="Enter Password" required
+                                                onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Mobile</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm invoice-fmt" name="mobile"
+                                                value="{{mobile}}" Placeholder="Enter mobile number"
+                                                onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+
+
+
+
+                                          <div class='form-group row'>
+                                            <label class="col-sm-4 control-label">School Name</label>
+                                            <div class="col-sm-8">
+                                              <select name="schoolid" class='form-control'>
+                                                <option value={{schoolid}} selected>{{school_name}}</option>
+                                                {{#each ../school_data}}
+                                                  <option value="{{this.id}}">{{this.schoolName}}</option>
+                                                {{/each}}
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class='form-group row'>
+                                            <label class="col-sm-4 control-label">Teacher Name</label>
+                                            <div class="col-sm-8">
+                                              <select name="teacherid" class='form-control'>
+                                                <option value={{teacherid}} selected>{{teacher_name}}</option>
+                                                {{#each ../teacher_data}}
+                                                  <option value="{{this.id}}">{{this.firstname}} {{this.lastname}}
+                                                  </option>
+                                                {{/each}}
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class='form-group row'>
+                                            <label class="col-sm-4 control-label">Class Name</label>
+                                            <div class="col-sm-8">
+                                              <select name="classid" class='form-control'>
+                                                <option value={{classid}} selected>{{class_name}}</option>
+                                                {{#each ../class_data}}
+                                                  <option value="{{this.id}}">{{this.className}}</option>
+                                                {{/each}}
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Enrollment Number</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" name="enrollmentnumber"
+                                                class="form-control input-sm cheque-amt"
+                                                Placeholder="Enter enrollment number" value="{{enrollmentnumber}}"
+                                                onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="main-btn" data-dismiss="modal">Close</button>
+                                          <button type="submit" class="main-btn">Update </button>
+
+                                        </div>
+                                      </div>
+                                    </div>
+
+
+                                  </div>
+                                </form>
+                                <td>
+                                  <form action="/admin/delete-student" method="POST">
+                                    <input type="hidden" name="id" value="{{id}}">
+                                    <button type="submit" class="delete-btn fa fa-trash-o"></button>
+                                    {{!-- <script>
+                                    //  document.getElementById("iddelete").onclick = function () {
+                                      //  console.log("hi");
+                                        //document.getElementById("form3").submit();
+                                      }
+                                    </script> --}}
+                                  </form>
+                                </td>
+                              </tr>
+                            </table>
+
+
+
+                          </td>
+                          <td align="center">
+                            <form action="/admin/assigned-pdf-student-view" method="POST">
+                              <input type="hidden" name="id" value="{{id}}">
+                              <button type="submit" class="" name="studentid">{{TotalAsign}}</button>
+                              {{!-- <script>
+                             //   document.getElementById("idsu").onclick = function () {
+                              //    console.log("hi");
+                         //         document.getElementById("form6").submit();
+                                }
+                              </script> --}}
+
+                            </form>
+
+                          </td>
+                          <td align="center">
+                            <form action="/admin/change-student-status" method="POST">
+                              <input type="hidden" name="id" value="{{id}}">
+                              {{#if_equal this.isActive "active" }}
+                                <button type="submit" class="badge badge-success" name="status"
+                                  value="{{isActive}}">{{isActive}}</button>
+                              {{/if_equal}}
+                              {{#if_equal this.isActive "inactive" }}
+                                <button type="submit" class="badge badge-danger" name="status"
+                                  value="{{isActive}}">{{isActive}}</button>
+                              {{/if_equal}}
+
+                              {{!-- <script>
+                               // document.getElementById("idstatus").onclick = function () {
+                                //  console.log("hi");
+                                  //document.getElementById("form4").submit();
+                                }
+                              </script> --}}
+
+
+
+                            </form>
+
+                          </td>
+                          <td>{{create_time}}</td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+
+
+
+
+
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  </div> -->
+        </div>
+      </div>
+    </div>
+</section>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+  integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+  integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<script>
+
+  $(document).ready(function () {
+
+    //$(".zz-modal").click(function() {
+    // $("#con-close-modal").modal('show');
+    //});
+
+    $('.con-close-modal').on('show.bs.modal', function (e) {
+      // console.log(e);
+      // console.log(e.relatedTarget);
+
+      var _button = $(e.relatedTarget); // Button that triggered the modal
+
+      // console.log(_button, _button.parents("tr"));
+      var _row = _button.parents("tr");
+    });
+  });
+</script>
+<script>
+  function getdata(id) {
+    var values = document.getElementById('status').value;
+    console.log(values)
+    console.log(id)
+  }
+
+</script>
+{{!-- <script>
+ // var x = document.getElementById("changeStatus").value;
+ // console.log(x)
+</script> --}}
+{{!-- <?php include( 'include/dashboard-footer.php'); ?> --}}
+<script>
+  $(':radio').change(function () {
+    console.log('New star rating: ' + this.value);
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    var buttonAdd = $("#add-button2");
+    var buttonRemove = $("#remove-button2");
+    var className = ".dynamic-input2";
+    var count = 0;
+    var field = "";
+    var maxFields = 50;
+
+    function totalFields() {
+      return $(className).length;
+    }
+
+    function addNewField() {
+      count = totalFields() + 1;
+      field = $("#dynamic-input-2").clone();
+      field.attr("id", "dynamic-input-" + count);
+      field.children("label").text("Field " + count);
+      field.find("input").val("");
+      $(className + ":last").after($(field));
+    }
+
+    function removeLastField() {
+      if (totalFields() > 1) {
+        $(className + ":last").remove();
+      }
+    }
+
+    function enableButtonRemove() {
+      if (totalFields() === 2) {
+        buttonRemove.removeAttr("disabled");
+        buttonRemove.addClass("shadow-sm");
+      }
+    }
+
+    function disableButtonRemove() {
+      if (totalFields() === 1) {
+        buttonRemove.attr("disabled", "disabled");
+        buttonRemove.removeClass("shadow-sm");
+      }
+    }
+
+    function disableButtonAdd() {
+      if (totalFields() === maxFields) {
+        buttonAdd.attr("disabled", "disabled");
+        buttonAdd.removeClass("shadow-sm");
+      }
+    }
+
+    function enableButtonAdd() {
+      if (totalFields() === (maxFields - 1)) {
+        buttonAdd.removeAttr("disabled");
+        buttonAdd.addClass("shadow-sm");
+      }
+    }
+
+    buttonAdd.click(function () {
+      addNewField();
+      enableButtonRemove();
+      disableButtonAdd();
+    });
+
+    buttonRemove.click(function () {
+      removeLastField();
+      disableButtonRemove();
+      enableButtonAdd();
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $('#all_school').on('change', function () {
+      var school_id = this.value;
+      $.getJSON(`/user/all_teacher/${school_id}`, function (data) {
+        $("#all_teacher").empty();
+        $("#all_teacher").append(
+          $("<option disabled selected >").text("Select teacher")
+        );
+        $.each(data, function (index, item) {
+          $("#all_teacher").append(
+            $("<option>")
+              .text(item.firstname)
+              .val(item.id)
+          );
+        });
+      });
+      $.getJSON(`/user/all_class/${school_id}`, function (data) {
+        $("#all_class").empty();
+        $("#all_class").append(
+          $("<option disabled selected >").text("Select class")
+        );
+        $.each(data, function (index, item) {
+          $("#all_class").append(
+            $("<option>")
+              .text(item.className)
+              .val(item.id)
+          );
+        });
+      });
+    });
+  });
+
+
+</script>
+<script>
+  $(document).ready(function () {
+    $('#all_school').on('change', function () {
+      var school_id = this.value;
+      $.getJSON(`/user/all_teacher/${school_id}`, function (data) {
+        $("#all_teacher").empty();
+        $("#all_teacher").append(
+          $("<option disabled selected >").text("Select teacher")
+        );
+        $.each(data, function (index, item) {
+          $("#all_teacher").append(
+            $("<option>")
+              .text(item.firstname)
+              .val(item.id)
+          );
+        });
+      });
+      $.getJSON(`/user/all_class/${school_id}`, function (data) {
+        $("#all_class").empty();
+        $("#all_class").append(
+          $("<option disabled selected >").text("Select class")
+        );
+        $.each(data, function (index, item) {
+          $("#all_class").append(
+            $("<option>")
+              .text(item.className)
+              .val(item.id)
+          );
+        });
+      });
+    });
+  });
+
+
+</script>
+
+
+
+<script>
+  $(document).ready(function () {
+    $('#selectall').click(function () {
+      $('.selectedId').prop('checked', this.checked);
+    });
+
+    $('.selectedId').change(function () {
+      var check = ($('.selectedId').filter(":checked").length == $('.selectedId').length);
+      $('#selectall').prop("checked", check);
+    });
+  });
+</script>
+<script>
+
+  function deleteRows() {
+    console.log("inside");
+    isTable = document.getElementById('example');
+    nBoxes = document.getElementsByName('delBox');
+    let id = [];
+    for (i = nBoxes.length - 1; i >= 0; i--) {
+      if (nBoxes[i].checked == true) {
+        id.push(nBoxes[i].value);
+        isTable.deleteRow(i + 1);
+      }
+    }
+
+    let data = id;
+    console.log(data);
+    if (data.length > 0) {
+      $.ajax({
+        method: 'POST',
+        url: "/admin/delete-multiple-student",
+        data: { data: data },
+        success: function (result) {
+          window.location.replace("https://lhavin.com/admin/student-list");
+        }
+      });
+    }
+
+
+  }
+</script>

@@ -1,0 +1,249 @@
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          {{#if message}}
+          <div class="alert alert-success">
+            {{#each message}}
+            <p>{{this}}</p>
+            {{/each}}
+          </div>
+          {{/if}}
+          {{#if failed}}
+          <div class="alert alert-danger">
+            {{#each failed}}
+            <p>{{this}}</p>
+            {{/each}}
+          </div>
+          {{/if}}
+          {{#each rows }}
+
+          <div class="login-form-card">
+            <!-- <div class="login-form-content"> -->
+            <form action="/teacher/teacher-edit-profile" method="POST">
+              <h2 class="form-title">Edit Profile</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="field" class="hidden-md">First Name</label>
+                    <input type="text" placeholder="" class="form-control" value="{{firstname}}" name="firstname" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="field" class="hidden-md">Last Name</label>
+                    <input type="text" placeholder="" class="form-control" value="{{lastname}}" name="lastname" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="field" class="hidden-md">Email Id</label>
+                    <input type="Email" placeholder="" class="form-control" value="{{email}}" name="email" />
+                    <input type="Email" placeholder="" class="form-control" hidden value="{{email}}" name="oldemail" />
+                  </div>
+                </div>
+                {{/each}}
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="field" class="hidden-md">School Name</label>
+                    <select class="form-control multipleselect" name="schoolid"
+                   id="select-country"
+                    >
+                      {{#each rows }}
+                      <option value={{schoolid}}>{{schoolName}}</option>
+                      {{/each}}
+                      {{#each schoolnames}}
+                      <option value={{id}}>{{this.schoolName}}</option>
+                      {{/each}}
+
+                    </select>
+                  </div>
+                </div>
+                        {{#each rows }}
+                   <div class="col-md-12">
+                      <div class="form-group">
+                        <label>What is the name of the Judaic principal or curriculum coordinator in your school who oversees the L'havin program?</label>
+                       <textarea  name="JudaicName" rows="2" cols="70"  class="form-control" >{{JudaicName}}</textarea>
+                      </div>
+                    </div>
+                      <div class="col-md-12">
+                      <div class="form-group">
+                        <label>What is the email address of the Judaic principal or curriculum coordinator in your school who oversees the L'havin program?</label>
+                  <input type="email" class="form-control" name="JudaicEmail"  value="{{JudaicEmail}}"/>
+                      </div>
+                    </div>
+                      <div class="col-md-12">
+                <div class="form-group newslectbox">
+                  <label>Which version of the L'havin workbooks do you need?</label>
+                  <select
+                    name="workbooks"
+                    class="form-control multipleselect"
+                    id="select-country"
+                  >
+                       <option value="{{workbooks}}">{{workbooks}}</option>
+                    <option value="Standard">Standard</option>
+                    <option value="Ivrit">Ivrit</option>
+                  </select>
+                </div>
+                     </div>
+                     <div class="col-md-12 form-group">
+              <span class="text-success" >Please indicate the workbooks you need to access: </span>
+              </br></br>
+              <span>PLEASE NOTE: You will only be given access to books which your school has purchased for this year.</span>
+                    </div>
+                    
+                    <div class="col-md-12">
+                <div class="form-group newslectbox">
+                  <input type="hidden" id="book-val" value="{{books}}" />
+                  <select
+                    name="books"
+                    class="form-control multipleselect"
+                    multiple="multiple"
+                    id="select-books-121"
+                    
+                  >
+                    {{!-- <option value="{{books}}">{{books}}</option> --}}
+                    <option value="Hachana L'Chumash - Script Version">Hachana L'Chumash - Script Version</option>
+                    <option value="Hachana L'Chumash - English Version">Hachana L'Chumash - English Version</option>
+                     <option value="Hachana L'Chumash - Print Version">Hachana L'Chumash - Print Version</option>
+                    <option value="Hachana L'Chumash - Ivrit Version">Hachana L'Chumash - Ivrit Version</option>
+                    <option value="פָּרָשַׁת לֶךְ-לְךָ 2AB">פָּרָשַׁת לֶךְ-לְךָ 2AB</option>
+                    <option value="פָּרָשַׁת לֶךְ-לְךָ 2C">פָּרָשַׁת לֶךְ-לְךָ 2C</option>
+                    <option value="פָּרָשַׁת לֶךְ-לְךָ 2D">פָּרָשַׁת לֶךְ-לְךָ 2D</option>
+                    <option value="פָּרָשַׁת וַיֵּרָא 3A">פָּרָשַׁת וַיֵּרָא 3A</option>
+                    <option value="פָּרָשַׁת וַיֵּרָא 3B">פָּרָשַׁת וַיֵּרָא 3B</option>
+                    <option value="פָּרָשַׁת וַיֵּרָא 3C">פָּרָשַׁת וַיֵּרָא 3C</option>
+                    <option value="פָּרָשַׁת חַיֵּי שָׁרָה 4A">פָּרָשַׁת חַיֵּי שָׁרָה 4A</option>
+                    <option value="פָּרָשַׁת חַיֵּי שָׁרָה 4B">פָּרָשַׁת חַיֵּי שָׁרָה 4B</option>
+                    <option value="פָּרָשַׁת חַיֵּי שָׁרָה 4C">פָּרָשַׁת חַיֵּי שָׁרָה 4C</option>
+                    <option value="פָּרָשַׁת תּוֹלְדוֹת 5A">פָּרָשַׁת תּוֹלְדוֹת 5A</option>
+                    <option value="פָּרָשַׁת תּוֹלְדוֹת 5B">פָּרָשַׁת תּוֹלְדוֹת 5B</option>
+                    <option value="פָּרָשַׁת וַיֵּצֵא 6A">פָּרָשַׁת וַיֵּצֵא 6A</option>
+                    <option value="פָּרָשַׁת וַיֵּצֵא 6B">פָּרָשַׁת וַיֵּצֵא 6B</option>
+                    <option value="פָּרָשַׁת וַיִּשְׁלַח 7A">פָּרָשַׁת וַיִּשְׁלַח 7A</option>
+                    <option value="פָּרָשַׁת וַיִּשְׁלַח 7B">פָּרָשַׁת וַיִּשְׁלַח 7B</option>
+                    <option value="פָּרָשַׁת וַיֵּשֶׁב 8A">פָּרָשַׁת וַיֵּשֶׁב 8A</option>
+                    <option value="פָּרָשַׁת וַיֵּשֶׁב 8B">פָּרָשַׁת וַיֵּשֶׁב 8B</option>
+                    <option value="פָּרָשַׁת מִקֵּץ 9A">פָּרָשַׁת מִקֵּץ 9A</option>
+                    <option value="פָּרָשַׁת מִקֵּץ 9B">פָּרָשַׁת מִקֵּץ 9B</option>
+                    <option value="פָּרָשַׁת וַיִּגַּשׁ 10A">פָּרָשַׁת וַיִּגַּשׁ 10A</option>
+                    <option value="פָּרָשַׁת וַיִּגַּשׁ 10B">פָּרָשַׁת וַיִּגַּשׁ 10B</option>
+                    <option value="פָּרָשַׁת וַיְּחִי 11">פָּרָשַׁת וַיְּחִי 11</option>
+                    <option value=" 12פָּרָשַׁת שְׁמוֹת"> 12פָּרָשַׁת שְׁמוֹת</option>
+                    <option value="פָּרָשַׁת וָאֵרָא 13">פָּרָשַׁת וָאֵרָא 13</option>
+                    <option value="14 פָּרָשַׁת בא">14 פָּרָשַׁת בא</option>
+                    <option value="סֵפֶּר יְהוֹשֻׁעַ">סֵפֶּר יְהוֹשֻׁעַ</option>
+                    <option value="סֵפֶּר שמואל אי">סֵפֶּר שמואל אי</option>
+                    <option value="Grade 3 - Chumash Skills Review Workbook">Grade 3 - Chumash Skills Review Workbook</option>
+                    <option value="Grade 5 - Chumash Skills Review Workbook C">Grade 5 - Chumash Skills Review Workbook C</option>
+                    <option value="Grade 5 - Chumash Skills Review Workbook D">Grade 5 - Chumash Skills Review Workbook D</option>
+                    <option value="Grade 5 - Chumash Skills Review Workbook E">Grade 5 - Chumash Skills Review Workbook E</option>
+                       <option value="Skills workbook">Skills workbook</option>
+                    <option value="DWD Bracha Achrona">DWD Bracha Achrona</option>
+                    <option value="DWD Shemoneh Esrei">DWD Shemoneh Esrei</option>
+                  </select>
+                </div>
+                  </div>
+ {{/each}}
+                <div class="col-md-12 text-center mt-20">
+                  <button class="main-btn" type="submit">Update</button>
+                </div>
+
+              </div>
+            </form>
+
+
+          </div>
+
+        </div>
+        <!--  </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<script>
+  $(':radio').change(function () {
+    console.log('New star rating: ' + this.value);
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    var buttonAdd = $("#add-button2");
+    var buttonRemove = $("#remove-button2");
+    var className = ".dynamic-input2";
+    var count = 0;
+    var field = "";
+    var maxFields = 50;
+
+    function totalFields() {
+      return $(className).length;
+    }
+
+    function addNewField() {
+      count = totalFields() + 1;
+      field = $("#dynamic-input-2").clone();
+      field.attr("id", "dynamic-input-" + count);
+      field.children("label").text("Field " + count);
+      field.find("input").val("");
+      $(className + ":last").after($(field));
+    }
+
+    function removeLastField() {
+      if (totalFields() > 1) {
+        $(className + ":last").remove();
+      }
+    }
+
+    function enableButtonRemove() {
+      if (totalFields() === 2) {
+        buttonRemove.removeAttr("disabled");
+        buttonRemove.addClass("shadow-sm");
+      }
+    }
+
+    function disableButtonRemove() {
+      if (totalFields() === 1) {
+        buttonRemove.attr("disabled", "disabled");
+        buttonRemove.removeClass("shadow-sm");
+      }
+    }
+
+    function disableButtonAdd() {
+      if (totalFields() === maxFields) {
+        buttonAdd.attr("disabled", "disabled");
+        buttonAdd.removeClass("shadow-sm");
+      }
+    }
+
+    function enableButtonAdd() {
+      if (totalFields() === (maxFields - 1)) {
+        buttonAdd.removeAttr("disabled");
+        buttonAdd.addClass("shadow-sm");
+      }
+    }
+
+    buttonAdd.click(function () {
+      addNewField();
+      enableButtonRemove();
+      disableButtonAdd();
+    });
+
+    buttonRemove.click(function () {
+      removeLastField();
+      disableButtonRemove();
+      enableButtonAdd();
+    });
+  });
+  $(function(){
+    let data = $('#book-val').val()
+    let darr  = data.split(',');
+    $('#select-books-121').val(darr);
+  })
+        $('#select-books-121').select2({
+          placeholder: "school Name"
+        });
+</script>

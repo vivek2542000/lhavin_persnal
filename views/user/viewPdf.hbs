@@ -1,0 +1,15 @@
+<form action="/user/pdf-status-update" method="POST">
+
+    <input hidden value={{currentassignid}} name="currentassignid">
+
+    <button type="submit" class="btn btn-primary">Mark As
+        Complete</button>
+</form>
+
+{{#if docurl}}
+<iframe src="{{docurl}}" width='100%' height='750px' allow="microphone; camera" id="document-iframe"></iframe>
+{{/if}}
+
+{{#if pfdurlofStudent}}
+<iframe src="{{pfdurlofStudent}}" width='100%' height='750px' allow="microphone; camera" id="document-iframe"></iframe>
+{{/if}}

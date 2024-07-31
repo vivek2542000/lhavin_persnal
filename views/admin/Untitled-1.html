@@ -1,0 +1,257 @@
+
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+            <!-- <div class="login-form-content"> -->
+
+            <h2 class="form-title">Classes</h2>
+
+
+            <!--  <div class="form-define-head">
+                <h4><span>step 3</span>Other Links</h4>
+              </div> -->
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive">
+
+                  <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>
+                        <!--  <th>Assigned Date</th> -->
+                        <th>School Name</th>
+                        <th>Class Name</th>
+                        <th>Added On(Date)</th>
+                        <th>Action</th>
+                        <th>status</th>
+                      </tr>
+                    </thead>
+                    {{#each rows}}
+                      <tbody>
+                        <tr>
+                          <!--  <td>01/08/2020</td> -->
+                          <td> {{id}} {{schoolName}}</td>
+                          <td>{{className}}</td>
+                          <td>{{createdAt}}</td>
+
+                          <td align="center">
+                            <button type=" button" class="btn btn-primary fa fa-plus" data-toggle="modal"
+                              data-target="#exampleModal">
+
+                            </button>
+                            <form action="/admin/add-class" method="POST">
+
+
+
+
+                              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Add Class</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                      <label>School Name</label>
+                                      <input type="text" name="schoolname">
+                                      <label>Class Name</label>
+                                      <input type="text" name="classname">
+                                    </div>
+
+                                    <div class=" modal-footer">
+                                      <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Close</button>
+                                      <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+
+
+
+                            {{!-- <a href="" class="fa fa-edit" style="color:seagreen;"> --}}
+                            <button type="button" class="btn btn-primary fa fa-edit" data-toggle="modal"
+                              data-target="#editModal">
+                            </button>
+
+                            <form id="formedit" action="/admin/edit-class" method="POST">
+                              <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                                aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="editModalLabel">Edit Class</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                      <input type=" hidden" name="id" id="id" value="{{id}}">
+                                      <label>School Name</label>
+                                      <input type="text" name="schoolname" id="schoolname" value="{{{schoolName}}}">
+                                      <label>Class Name</label>
+                                      <input type="text" name="classname" id="classname" value="{{{className}}}">
+                                    </div>
+
+                                    <div class=" modal-footer">
+                                      <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Close</button>
+                                      <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                            <Script>
+                              $(document).ready(function () {
+                                $(".announce").click(function () { // Click to only happen on announce links
+                                  $("#cafeId").val($(this).data('id'));
+                                  $('#createFormId').modal('show');
+                                });
+                              });
+                            </Script>
+
+                            <form id="form3" action="/admin/delete-class" method="POST">
+                              <input type="hidden" name="id" value="{{id}}">
+                              <button class="fa fa-trash-o" style="color: red;"></button>
+
+                            </form>
+                            <script>
+                              document.getElementById("name").onclick = function () {
+                                console.log("hi");
+                                document.getElementById("form3").submit();
+                              }
+                            </script>
+                          </td>
+
+                          <td align="center">
+                            <form id="form4" action="/admin/change-class-status" method="POST">
+                              <input type="hidden" name="id" value="{{id}}">
+                              <button class="badge badge-success" name="status"
+                                value="{{isActive}}">{{isActive}}</button>
+
+                            </form>
+                            <script>
+                              document.getElementById("name").onclick = function () {
+                                console.log("hi");
+                                document.getElementById("form4").submit();
+                              }
+                            </script>
+                          </td>
+                        </tr>
+                      </tbody>
+                    {{/each}}
+                  </table>
+
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+          </div>
+        </div>
+        <!--  </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<script>
+  function getdata(id) {
+    var values = document.getElementById('status').value;
+    console.log(values)
+    console.log(id)
+  }
+
+</script>
+{{!-- <script>
+  var x = document.getElementById("changeStatus").value;
+  console.log(x)
+</script> --}}
+{{!-- <?php include( 'include/dashboard-footer.php'); ?> --}}
+<script>
+  $(':radio').change(function () {
+    console.log('New star rating: ' + this.value);
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    var buttonAdd = $("#add-button2");
+    var buttonRemove = $("#remove-button2");
+    var className = ".dynamic-input2";
+    var count = 0;
+    var field = "";
+    var maxFields = 50;
+
+    function totalFields() {
+      return $(className).length;
+    }
+
+    function addNewField() {
+      count = totalFields() + 1;
+      field = $("#dynamic-input-2").clone();
+      field.attr("id", "dynamic-input-" + count);
+      field.children("label").text("Field " + count);
+      field.find("input").val("");
+      $(className + ":last").after($(field));
+    }
+
+    function removeLastField() {
+      if (totalFields() > 1) {
+        $(className + ":last").remove();
+      }
+    }
+
+    function enableButtonRemove() {
+      if (totalFields() === 2) {
+        buttonRemove.removeAttr("disabled");
+        buttonRemove.addClass("shadow-sm");
+      }
+    }
+
+    function disableButtonRemove() {
+      if (totalFields() === 1) {
+        buttonRemove.attr("disabled", "disabled");
+        buttonRemove.removeClass("shadow-sm");
+      }
+    }
+
+    function disableButtonAdd() {
+      if (totalFields() === maxFields) {
+        buttonAdd.attr("disabled", "disabled");
+        buttonAdd.removeClass("shadow-sm");
+      }
+    }
+
+    function enableButtonAdd() {
+      if (totalFields() === (maxFields - 1)) {
+        buttonAdd.removeAttr("disabled");
+        buttonAdd.addClass("shadow-sm");
+      }
+    }
+
+    buttonAdd.click(function () {
+      addNewField();
+      enableButtonRemove();
+      disableButtonAdd();
+    });
+
+    buttonRemove.click(function () {
+      removeLastField();
+      disableButtonRemove();
+      enableButtonAdd();
+    });
+  });
+</script>

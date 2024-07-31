@@ -1,0 +1,269 @@
+{{!-- <?php include( 'include/student-dashboard-header.php'); ?> --}}
+
+<head>
+  <title>Student|Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+  <!--  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/dataTables.bootstrap4.min.css">
+
+  <link rel="stylesheet" type="text/css" href="/stylesheets/dashboard.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/stylesheets/bootstrap-multiselect.css">
+  <link href="/stylesheets/select2.min.css" rel="stylesheet" />
+  <link href="/stylesheets/montserrat.css" rel="stylesheet">
+  <link href="/stylesheets/intlTelInput.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+
+  {{!-- a!----------------COntent start--------------> --}}
+  <section id="content-wrapper">
+    <div class="container-fluid">
+      <div class="row p-t-b-20">
+        <div class="col-md-12">
+
+          <div class="form-card no-b">{{#if message}}
+              <div class="alert alert-success">
+                {{#each message}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </div>
+            {{/if}}
+            {{#if failed}}
+              <div class="alert alert-danger">
+                {{#each failed}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </div>
+            {{/if}}
+            <div class="login-form-card">
+              <!-- <div class="login-form-content"> -->
+              <form action="/user/student-edit-profile" method="POST">
+                <h2 class="form-title">Edit Profile</h2>
+
+
+                <!--  <div class="form-define-head">
+                  <h4><span>step 3</span>Other Links</h4>
+                </div> -->
+
+                <div class="row">
+                  {{#each rows}}
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="field" class="hidden-md">First Name</label>
+                        <input type="text" name="firstname" value="{{firstname}}" class="form-control" />
+
+                      </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="field" class="hidden-md">Last Name</label>
+                        <input type="text" value="{{lastname}}" class="form-control" name="lastname" />
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="field" class="hidden-md">Email Id / Username</label>
+                        <input type="text" value="{{email}}" class="form-control" name="email" />
+                        <input type="text" class="form-control" hidden value="{{email}}" name="oldemail" />
+
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="field" class="hidden-md">Mobile Number</label>
+                        <input type="text" value="{{mobile}}" class="form-control" name="mobile" />
+                      </div>
+                    </div>
+                  {{/each}}
+
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="field" class="hidden-md">School Name</label>
+                      {{!-- <select class=" form-control" id="all_school" name="schoolid"> --}}
+
+                      {{#each rows }}
+                        <input class="form-control" readonly value={{school_name}} name="schoolid">
+                      {{/each}}
+                      {{!-- {{#each all_school}}
+                          <option value={{id}}>{{this.schoolName}}</option>
+                        {{/each}} --}}
+
+
+
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="field" class="hidden-md">Teacher Name</label>
+                      {{!-- <select class="form-control" id="all_teacher" name="teacherid"> --}}
+                      {{#each rows}}
+                        <input class="form-control" readonly name="teacherid" value={{teacher_name}}>
+                      {{/each}}
+                      {{!-- {{#each rows }}
+                          <option selected value={{teacherid}}>{{teacher_name}}</option>
+                        {{/each}} --}}
+                      {{!-- </select> --}}
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Class Name</label>
+                      {{#each rows }}
+                        <input class="form-control" readonly name="classid" value={{class_name}}>
+                      {{/each}}
+                      <select class="form-control" id="all_class" name="classid">
+                        {{#each rows }}
+                          <option selected value={{classid}}>{{class_name}}</option>
+                        {{/each}}
+
+                      </select>
+                    </div>
+                  </div>
+                  {{#each rows}}
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="field" class="hidden-md">Enrollment No.</label>
+                        <input type="text" readonly value="{{enrollmentnumber}}" class="form-control"
+                          name="enrollmentnumber">
+                      </div>
+                    </div>
+                  {{/each}}
+                  <div class="col-md-12 text-center mt-20">
+                    <button class="main-btn" type="submit">Update</button>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+          {{!-- <!--  </div> --> --}}
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  {{!-- <?php include( 'include/dashboard-footer.php'); ?> --}}
+  <script>
+    $(':radio').change(function () {
+      console.log('New star rating: ' + this.value);
+    });
+  </script>
+  <script>
+    $(document).ready(function () {
+      var buttonAdd = $("#add-button2");
+      var buttonRemove = $("#remove-button2");
+      var className = ".dynamic-input2";
+      var count = 0;
+      var field = "";
+      var maxFields = 50;
+
+      function totalFields() {
+        return $(className).length;
+      }
+
+      function addNewField() {
+        count = totalFields() + 1;
+        field = $("#dynamic-input-2").clone();
+        field.attr("id", "dynamic-input-" + count);
+        field.children("label").text("Field " + count);
+        field.find("input").val("");
+        $(className + ":last").after($(field));
+      }
+
+      function removeLastField() {
+        if (totalFields() > 1) {
+          $(className + ":last").remove();
+        }
+      }
+
+      function enableButtonRemove() {
+        if (totalFields() === 2) {
+          buttonRemove.removeAttr("disabled");
+          buttonRemove.addClass("shadow-sm");
+        }
+      }
+
+      function disableButtonRemove() {
+        if (totalFields() === 1) {
+          buttonRemove.attr("disabled", "disabled");
+          buttonRemove.removeClass("shadow-sm");
+        }
+      }
+
+      function disableButtonAdd() {
+        if (totalFields() === maxFields) {
+          buttonAdd.attr("disabled", "disabled");
+          buttonAdd.removeClass("shadow-sm");
+        }
+      }
+
+      function enableButtonAdd() {
+        if (totalFields() === (maxFields - 1)) {
+          buttonAdd.removeAttr("disabled");
+          buttonAdd.addClass("shadow-sm");
+        }
+      }
+
+      buttonAdd.click(function () {
+        addNewField();
+        enableButtonRemove();
+        disableButtonAdd();
+      });
+
+      buttonRemove.click(function () {
+        removeLastField();
+        disableButtonRemove();
+        enableButtonAdd();
+      });
+    });
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      $('#all_school').on('change', function () {
+        var school_id = this.value;
+        $.getJSON(`/user/all_teacher/${school_id}`, function (data) {
+          $("#all_teacher").empty();
+          $("#all_teacher").append(
+            $("<option disabled selected >").text("Select teacher")
+          );
+          $.each(data, function (index, item) {
+            $("#all_teacher").append(
+              $("<option>")
+                .text(item.firstname)
+                .val(item.id)
+            );
+          });
+        });
+        $.getJSON(`/user/all_class/${school_id}`, function (data) {
+          $("#all_class").empty();
+          $("#all_class").append(
+            $("<option disabled selected >").text("Select class")
+          );
+          $.each(data, function (index, item) {
+            $("#all_class").append(
+              $("<option>")
+                .text(item.className)
+                .val(item.id)
+            );
+          });
+        });
+      });
+    });
+
+
+  </script>
+</body>

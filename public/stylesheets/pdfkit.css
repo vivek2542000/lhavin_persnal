@@ -1,0 +1,17 @@
+.PSPDFKit-Toolbar {
+  background-color: #f00;
+}
+/* We're removing the shown `svg` on both buttons. */
+.PSPDFKit-Toolbar-Button-Fit-To-Page svg,
+.PSPDFKit-Toolbar-Button-Fit-To-Width svg {
+  content: "";
+}
+
+/* Then we set our own icons. */
+.PSPDFKit-Toolbar-Button-Fit-To-Page span {
+  content: url(my-custom-fit-to-page-icon.svg);
+}
+
+.PSPDFKit-Toolbar-Button-Fit-To-Width span {
+  content: url(my-custom-fit-to-width-icon.svg);
+}

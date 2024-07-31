@@ -1,0 +1,148 @@
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+            <!-- <div class="login-form-content"> -->
+
+            <h2 class="form-title">Music File</h2>
+            {{#if message}}
+              <div class="alert alert-success">
+                {{#each message}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </div>
+            {{/if}}
+            <div class="search-container">
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>`
+                        <!--  <th>Assigned Date</th> -->
+                        <th>Assigned Date.</th>
+                        {{!-- <th>Assigned By</th> --}}
+                        <th>File Link</th>
+                        <th>Views</th>
+                      </tr>
+                    </thead>
+                    <tbody id="item1">
+                      {{#each rows}}
+                        <tr id="items">
+                          <!--  <td>01/08/2020</td> -->
+                          <td>{{created_at}}</td>
+                          {{!-- <td>{{email}}</td> --}}
+                          <td>{{musicurl}}</td>
+                          <td>
+                            <input type="button"  onclick="play()">
+                            <audio  id="audio" src="{{musicurl}}" controls></audio>
+                            </td>
+                          </td>
+                        </tr>
+                    </tbody>
+                    {{/each}}
+                  </table>
+                  <script>         // You can render page here...
+                    $(function () {
+                      var msgFromServer;
+                      $.get("/teacher/sample-api", function (data) {
+                        msgFromServer = data;
+                        console.log(msgFromServer);
+                        //alert("Received data from server!");
+                      });
+                    });
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<script>
+  $(':radio').change(function () {
+    console.log('New star rating: ' + this.value);
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    var buttonAdd = $("#add-button2");
+    var buttonRemove = $("#remove-button2");
+    var className = ".dynamic-input2";
+    var count = 0;
+    var field = "";
+    var maxFields = 50;
+
+    function totalFields() {
+      return $(className).length;
+    }
+
+    function addNewField() {
+      count = totalFields() + 1;
+      field = $("#dynamic-input-2").clone();
+      field.attr("id", "dynamic-input-" + count);
+      field.children("label").text("Field " + count);
+      field.find("input").val("");
+      $(className + ":last").after($(field));
+    }
+
+    function removeLastField() {
+      if (totalFields() > 1) {
+        $(className + ":last").remove();
+      }
+    }
+
+    function enableButtonRemove() {
+      if (totalFields() === 2) {
+        buttonRemove.removeAttr("disabled");
+        buttonRemove.addClass("shadow-sm");
+      }
+    }
+
+    function disableButtonRemove() {
+      if (totalFields() === 1) {
+        buttonRemove.attr("disabled", "disabled");
+        buttonRemove.removeClass("shadow-sm");
+      }
+    }
+
+    function disableButtonAdd() {
+      if (totalFields() === maxFields) {
+        buttonAdd.attr("disabled", "disabled");
+        buttonAdd.removeClass("shadow-sm");
+      }
+    }
+
+    function enableButtonAdd() {
+      if (totalFields() === (maxFields - 1)) {
+        buttonAdd.removeAttr("disabled");
+        buttonAdd.addClass("shadow-sm");
+      }
+    }
+
+    buttonAdd.click(function () {
+      addNewField();
+      enableButtonRemove();
+      disableButtonAdd();
+    });
+
+    buttonRemove.click(function () {
+      removeLastField();
+      disableButtonRemove();
+      enableButtonAdd();
+    });
+  });
+
+   function play() {
+        var audio = document.getElementById("audio");
+        audio.play();
+      }
+
+</script>

@@ -1,0 +1,31 @@
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+
+<script src="/dist/pspdfkit.js"></script>
+
+<!-- Provide proper viewport information so that the layout works on mobile devices. -->
+
+
+
+<!-- 2. Element where PSPDFKit will be mounted. -->
+<div id="pspdfkit" style="width: 100%; height: 720px;"></div>
+<script src="https://pspdfkit.your-site.com/dist/index.js"></script>
+<!-- 3. Initialize PSPDFKit. -->
+<script>
+    PSPDFKit.load({
+        styleSheets: ["/stylesheets/pdfkit.css"],
+        disableWebAssemblyStreaming: true,
+        container: "#pspdfkit",
+        document: "/images/samplea.pdf",
+        licenseKey: "OgHe7cCceIIudMYC97uSTpNlApWq4tpZF_vlqTTPJYTjk2oE1hK16otUz7T47lfIpAMPf-CzlubJB54UpKBfX1La4lF4kP_DsEv9-2EJDciQvAfBe7oeRKCo98id0g5OQHRk_hilCoSrzhukiWmw83UXmkQyTfKLuqasIvA9o2na7anQ1CYspaAQPPbcYKU9tL8Dgh4TRhY-GWhb1Um2dnaD-wZRnuIQsoJPxmUeL8dVXzdvgzFZlojZItC1hIxzLtsPdPCsaSGCsTkot1DHsDynDc4mqK2Lhz3NpMEY8GQiLD5hl07Bax_r-ax3HmZtyuaQn1D49fDz0vAsXqcmy2gFjcdarpOweS65NFKKkVTq3Jnqd12eA6-FyqHENyELxpRrUzRGflrUe6DRFUNXZXtFDtvra_ZFw_FZ9yB12WUS9LTOU6miB7YPAqtSJq3N"
+    })
+        .then(function (instance) {
+            console.log("PSPDFKit loaded", instance);
+        })
+        .catch(function (error) {
+            console.error(error.message);
+        });
+</script>

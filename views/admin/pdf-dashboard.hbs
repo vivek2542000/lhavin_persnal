@@ -1,0 +1,318 @@
+<style>
+    .naming {
+        display: none;
+    }
+
+    .progress {
+        margin: 10px;
+        width: 700px;
+    }
+</style>
+
+{{#if message}}
+    <div class="alert alert-success">
+        {{#each message}}
+            <p>{{this}}</p>
+        {{/each}}
+    </div>
+{{/if}}
+<form action="/admin/assign-pdf" method="POST">
+    <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Assign Pdf</h4>
+                </div>
+                <div class="modal-body">
+        
+
+                    <div class="dropdownMenus col-md-12">
+
+                        <div class='form-group'>
+                            <label for='brandFilter'>PDF NAME</label>
+                            <select name="pdfname" id='pdfname' class='form-control multipleselect' multiple="multiple">
+                                <option>Choose pdf</option>
+                                {{#each rows}}
+                                    <option value="{{this.pdfid}}"> {{this.pdfname }} - {{this.pdf_create_time}}
+                                    </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="cars" value="2" id="teacher-name">
+                            <label for="teacher-name">Teacher</label>
+                            <input type="radio" name="cars" value="3" id="group-name">
+                            <label for="group-name">Group</label>
+                        </div>
+                        <div class='form-group desc' id="Cars2" style="display: none;">
+                            <label for='colorFilter'>Teacher Name</label>
+                            <select multiple="multiple" name="teachername" class='form-control multipleselect'>
+                                {{!-- <option>Choose Teacher</option> --}}
+                                {{#each teacherlist}}
+                                    <option value="{{this.id}}">{{this.firstname}} {{this.lastname}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class='form-group desc' id="Cars3" style="display: none;">
+                            <label for='colorFilter'>Teacher Group Name</label>
+                            <input hidden type="text" name="group" value="group">
+                            <select multiple="multiple" name="teachername" class='form-control multipleselect'>
+                                {{!-- <option>Choose Teacher</option> --}}
+                                {{#each group}}
+                                    <option value="{{this.id}}">{{this.groupname}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class='form-group'>
+                            <label for='colorFilter'>Description</label>
+                            <textarea name="textarea" id="textarea" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="new-main-btn" data-dismiss="modal">Close</button>
+                    <button type="submit" class="new-main-btn">Assign
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+
+
+<section id="content-wrapper">
+    <div class="container-fluid">
+        <div class="row p-t-b-20">
+            <div class="col-md-12">
+                <div class="form-card no-b">
+                    <div class="login-form-card">
+                        <div class="upload-new-pdf">
+                            <form id="pdfform" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="pdf" id="pdf" multiple="multiple"
+                                    onchange="$('.ajax_modal').show(); abc();">
+                                <label for="pdf"></label>
+                                <span class="upload-pdf-btn fa fa-upload">&nbsp; Upload PDF</span>
+                            </form>
+                        </div>
+
+                        <div class="head-title">
+                            <h2 class="form-title">Assign to Teacher </h2>
+                            <button class="main-btn  btn-xs zz-modal" data-toggle="modal"
+                                data-target="#con-close-modal">Assign
+                                Pdf</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>PDF Id</th>
+                                                <th>PDF Name</th>
+                                                <th>Uploaded on</th>
+                                                <th>View</th>
+                                                <th>Action</th>
+                                                {{!-- <th>status</th> --}}
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{#each rows}}
+                                                <tr>
+                                                    <td class="invoice-imt">{{pdfid}}</td>
+                                                    <td> <a href="{{pdfurl}}" target="_blank">{{pdfname}} -
+                                                            {{pdf_create_time}}</a></td>
+                                                    <td>{{pdf_create_time}}</td>
+                                                    <td class="invoice-amt"><a href="{{pdfurl}}" target="_blank">View
+                                                            PDF</a>
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        <table>
+                                                            <tr>
+                                                                <td><button hidden class="edit-btn btn-xs zz-modal"
+                                                                        data-toggle="modal"
+                                                                        data-target="#con-close-modal">Edit</button>
+                                                                </td>
+                                                                <td>
+                                                                    <form action="/admin/delete-pdf" method="POST">
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{pdfid}}">
+                                                                        <button type="submit"
+                                                                            class="delete-btn fa fa-trash-o"></button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+
+                                                    {{!-- <td align="center">
+                                                        <form id="form4" action="/admin/change-pdf-status"
+                                                            method="POST">
+                                                            <input type="hidden" name="id" id="statuspdf"
+                                                                value="{{id}}">
+                                                            <button class="badge badge-success" name="status"
+                                                                value="{{isActive}}">{{isActive}}</button>
+                                                            <script>
+                                                              //  document.getElementById("statuspdf").onclick = function () {
+                                                                //    console.log("hi");
+                                                                 //   document.getElementById("form4").submit();
+                                                                }
+                                                            </script>
+
+                                                        </form>
+
+                                                    </td> --}}
+                                                </tr>
+                                            {{/each}}
+                                        </tbody>
+
+
+                                        <form action="/admin/edit-teacher" method="POST">
+                                            <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog"
+                                                aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+
+                                                            <h4 class="modal-title">Edit School</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group row">
+
+                                                                <div class="col-sm-8">
+                                                                    <input type="number" name="id" hidden
+                                                                        class="invoice-imt">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 control-label">First Name</label>
+                                                                <div class="col-sm-8">
+                                                                    <input type="text"
+                                                                        class="form-control input-sm invoice-amt"
+                                                                        name="firstname" Placeholder="Enter First name"
+                                                                        onkeypress="return isNumber(event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 control-label">Last Name</label>
+                                                                <div class="col-sm-8">
+                                                                    <input type="text"
+                                                                        class="form-control input-sm invoice-bmt"
+                                                                        name="lastname" Placeholder="Enter Last name"
+                                                                        onkeypress="return isNumber(event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 control-label">email</label>
+                                                                <div class="col-sm-8">
+                                                                    <input type="email"
+                                                                        class="form-control input-sm invoice-emt"
+                                                                        name="email" Placeholder="Enter email"
+                                                                        onkeypress="return isNumber(event)">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 control-label">School
+                                                                    Name</label>
+                                                                <div class="col-sm-8">
+                                                                    <input type="text"
+                                                                        class="form-control input-sm invoice-cmt"
+                                                                        name="schoolname"
+                                                                        Placeholder="Enter school name"
+                                                                        onkeypress="return isNumber(event)">
+                                                                </div>
+                                                            </div>
+
+
+
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="new-main-btn"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="new-main-btn">Update
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </form>
+
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--  </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function abc() {
+        var file_data = $('#pdf').prop('files')[0];
+        var formdata = new FormData();
+        formdata.append('pdf', file_data);
+
+        $.ajax({
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            xhr: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        $('.progress2').html('<b class="progress-bar progress-bar-voilet progress-bar-striped active"> File Uploading : ' + (Math.round(percentComplete * 100)) + '% </b>');
+                    }
+                }, false);
+                return xhr;
+            },
+            type: 'POST',
+            url: "/admin/pdf-upload",
+            data: formdata,
+            success: function (data) {
+                window.location.replace("http://lhavin.com/admin/pdf-dashboard");
+            }
+        });
+
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[name$='cars']").click(function () {
+
+            var test = $(this).val();
+
+            $(".desc").hide();
+            $("#Cars" + test).show();
+        });
+    });
+</script>
+
+{{!-- var current_progress = 0;
+var interval = setInterval(function () {
+current_progress += 10;
+$("#dynamic")
+.css("width", current_progress + "%")
+.attr("aria-valuenow", current_progress)
+.text(current_progress + "% Complete");
+if (current_progress >= 100)
+clearInterval(interval);
+}, 1000); --}}

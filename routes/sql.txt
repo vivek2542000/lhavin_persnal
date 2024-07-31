@@ -1,0 +1,49 @@
+SELECT t.*, p.*, ap.*
+FROM `assignPdf
+` AS ap ,`user` AS t , `pdf` AS p WHERE t.id = ap.assignTo AND p.id = ap.pdfid
+
+SELECT t.*, ap.*
+FROM `user` AS ap , `admin
+` AS t WHERE t.email = ap.email
+
+
+
+By Mohit
+
+Teacher List outside query
+
+SELECT t.*, p.*, ap.*, (SELECT COUNT(assignid)
+    FROM assignPdf
+    WHERE assignTo = t.id) AS TotalPdf
+FROM `assignPdf` AS ap , `teacher
+` AS t , `pdf` AS p WHERE t.id = ap.assignTo AND p.id = ap.pdfid GROUP BY t.id
+
+Inner Query Inside page
+SELECT t.*, p.*, ap.*, (SELECT COUNT(assignid)
+    FROM assignPdf
+    WHERE assignTo = t.id) AS TotalPdf
+FROM `assignPdf` AS ap , `teacher
+` AS t , `pdf` AS  p WHERE t.id = ap.assignTo AND t.id = 1 AND p.id = ap.pdfid 
+
+for student dashboard total pdf
+SELECT
+    t.*,
+    p.*,
+    ap.*,
+    (
+    SELECT
+        COUNT(assignid)
+    FROM
+        assignPdf
+    WHERE
+        assignToStudent = t.id
+) AS TotalPdf
+FROM
+    `assignPdf
+` AS ap,
+    `student` AS t,
+    `pdf` AS p
+WHERE
+    t.id = ap.assignToStudent AND p.pdfid = ap.pdfid
+GROUP BY
+    t.id

@@ -1,0 +1,42 @@
+.color{
+	background-color: #6b0e3d;
+}
+.text{
+	color: white;
+	    position: relative;
+    top: 215px;
+    font-weight: 900;
+    font-family: cursive;
+
+}
+.texxt{
+	    color: white;
+    position: relative;
+    top: 231px;
+    margin-left: 23px;
+    font-size: 33px;
+}
+.button{
+	    position: relative;
+    top: 254px;
+        margin-left: 20px;
+}
+
+ .button:hover.button{
+ 	color: #6b0e3d;
+ }
+
+
+.tex{
+	color: white;
+	    position: relative;
+    top: 218px;
+    margin-left: -5px;
+}
+.btn.btn-light{
+	border-radius: 20px;
+}
+.display-1.text{
+	    font-size: 8rem;
+	    font-weight: bold;
+}

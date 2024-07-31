@@ -1,0 +1,99 @@
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+
+
+            <div class="head-title">
+              <h2 class="form-title">Total Assign Pdf</h2>
+
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>Assign Date</th>
+                        <th>PDF Name</th>
+                        <th>Description</th>
+                        <th>Last Edited</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each rows}}
+
+                        <tr>
+                          <td>{{dateAssignedByTeacher}}</td>
+                          {{!-- <td> <a href="http://localhost:3000/pdf/{{pdfname}}" target="_blank">{{pdfname}}</a></td> --}}
+                          <td>
+                            <form action="/teacher/teacher-assigned-student-total-view-pdf" method="POST"
+                              target="_Blank">
+                              <input hidden type="text" value="{{pdfForStudent}}" name="pdfurl">
+                              <button><i class="fa fa-file-pdf-o mr-5"></i>Edited_{{pdfname}} -
+                                {{pdf_create_time}}</button>
+                            </form>
+                            {{!-- <a href="/teacher/teacher-assigned-student-total-assigned-view-pdf?pdf={{pdfForStudent}}"
+                              target="_blank"><i class="fa fa-file-pdf-o mr-5"></i>Edited_{{pdfname}} -
+                              {{pdf_create_time}}</a> --}}
+                          </td>
+                          </td>
+                          <td>{{studentDescription}}</td>
+                          <td>{{lastedit}}</td>
+                          <td align="center">
+
+                            {{!-- <form id="gettingassignid" action="/teacher/view-student-pdf" method="POST">
+                            <input hidden name="assignid" value={{assignid}}>
+                            <button type="submit" class="view-btn">View</button>
+                          </form> --}}
+
+                            {{#if finalPdfOfStudent}}
+                              <form action="/teacher/teacher-assigned-student-total-view-pdf" method="POST"
+                                target="_Blank">
+                                <input hidden type="text" value="{{finalPdfOfStudent}}" name="pdfurl">
+                                <button class="view-btn">View</button>
+                              </form>
+                              {{!-- <a href="/teacher/teacher-assigned-student-completed-view-pdf?pdf={{finalPdfOfStudent}}"
+                                  target="_blank" class="view-btn">View</a> --}}
+                            {{else}}
+                              <form action="/teacher/teacher-assigned-student-total-view-pdf" method="POST">
+                                <button type="submit" class="view-btn">View</button>
+                              </form>
+                            {{/if}}
+
+                            {{!-- <form id="gettingassignid" action="/teacher/view-student-pdf" method="POST">
+                              <input hidden name="assignid" value={{assignid}}>
+                              {{#if finalPdfOfStudent}}
+                                <a href="/teacher/teacher-assigned-student-total-assigned-view-pdf?pdf={{pdfForStudent}}"
+                                  target="_blank"><i class="view-btn"></i>View</a>
+                              {{else}}
+                                <button type="submit" class="view-btn">View</button>
+                              {{/if}}
+                            </form> --}}
+
+
+
+                          </td>
+                        </tr>
+
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <!--  </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+</div>

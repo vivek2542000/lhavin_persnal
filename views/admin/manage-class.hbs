@@ -1,0 +1,328 @@
+{{!-- <?php include( 'include/teacher-dashboard-header.php'); ?>
+<!----------------COntent start--------------> --}}
+
+
+<section id="content-wrapper">
+  <div class="container-fluid">
+    <div class="row p-t-b-20">
+      <div class="col-md-12">
+        <div class="form-card no-b">
+          <div class="login-form-card">
+            <!-- <div class="login-form-content"> -->
+
+            <div class="head-title">
+              <h2 class="form-title">Classes</h2>
+              <button type=" button" class="main-btn fa fa-plus" data-toggle="modal" data-target="#exampleModal">&nbsp;
+                Add Class
+              </button>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive">
+
+                  <table id="example" class="table table-striped table-bordered nowrap display">
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Class Name</th>
+                        <th>School Name</th>
+                        <th>Added On(Date)</th>
+                        <th>Action</th>
+                        <th>status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {{#each rows}}
+                        <tr id="somerow">
+                          <td>{{id}}</td>
+                          <td>{{className }}</td>
+                          <td>{{school_name}}</td>
+                          {{!-- <td class="invoice-amt" hidden>{{firstname }} </td>
+                                  <td class="invoice-bmt" hidden>{{lastname}}</td> --}}
+                          <td>{{createdAt}}</td>
+
+
+                          <td class="text-center">
+                            <table>
+                              <tr>
+                                <td><button class="edit-btn btn-xs zz-modal con-close-modal" data-toggle="modal"
+                                    data-target="#con-close-modal-{{id}}">Edit</button></td>
+                                <form action="/admin/edit-class" method="POST">
+                                  <div id="con-close-modal-{{id}}" class="modal fade" tabindex="-1" role="dialog"
+                                    aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+
+                                          <h4 class="modal-title">Edit Class</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Class ID</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm invoice-amt" name="id"
+                                                value={{id}} readonly onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+
+                                          <div class='form-group row'>
+                                            <label class="col-sm-4 control-label">School Name</label>
+                                            <div class="col-sm-8">
+                                              <select name="schoolid" class='form-control'>
+                                                <option value={{this.id}} selected>{{school_name}}</option>
+                                                { {{#each ../school_data}}
+                                                  <option value="{{this.id}}">{{this.schoolName}}</option>
+                                                {{/each}}
+                                              </select>
+                                            </div>
+                                          </div>
+                                          {{!-- <div class="form-group row">
+                                            <label class="col-sm-4 control-label">School Name</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm invoice-emt"
+                                                name="schoolname" value="{{school_name}}"
+                                                Placeholder="Enter school name" onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div> --}}
+                                          <div class="form-group row">
+                                            <label class="col-sm-4 control-label">Class Name</label>
+                                            <div class="col-sm-8">
+                                              <input type="text" class="form-control input-sm invoice-amt"
+                                                name="classname" Placeholder="Enter class name" value="{{className}}"
+                                                required onkeypress="return isNumber(event)">
+                                            </div>
+                                          </div>
+
+
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="main-btn" data-dismiss="modal">Close</button>
+                                          <button type="submit" class="main-btn">Update </button>
+
+                                        </div>
+                                      </div>
+                                    </div>
+
+
+                                  </div>
+                                </form>
+                                <td>
+                                  <form action="/admin/delete-class" method="POST">
+                                    <input type="hidden" name="id" value="{{id}}">
+                                    <button type="submit" class="delete-btn fa fa-trash-o"></button>
+                                  </form>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+
+                          <td align="center">
+                            <form action="/admin/change-class-status" method="POST">
+                              <input type="hidden" name="id" value="{{id}}">
+                              {{#if_equal this.isActive "active" }}
+                                <button type="submit" class="badge badge-success" name="status"
+                                  value="{{isActive}}">{{isActive}}</button>
+                              {{/if_equal}}
+                              {{#if_equal this.isActive "inactive" }}
+                                <button type="submit" class="badge badge-danger" name="status"
+                                  value="{{isActive}}">{{isActive}}</button>
+                              {{/if_equal}}
+                            </form>
+
+                          </td>
+
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  </div> -->
+        </div>
+      </div>
+    </div>
+</section>
+
+
+
+<form action="/admin/add-class" method="POST">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Class</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <label>School Name</label>
+          <div>
+            <select name="schoolid" class='form-control'>
+              {{!-- <option value={{classid}}>{{class_name}}</option> --}}
+              {{#each school_data}}
+                <option value="{{this.id}}">{{this.schoolName}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <label>Class Name</label>
+          <input type="text" name="classname" placeholder="Enter class name">
+        </div>
+
+        <div class=" modal-footer">
+          <button type="button" class="main-btn" data-dismiss="modal">Close</button>
+          <button type="submit" class="main-btn">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+  integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+  integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<script>
+
+  $(document).ready(function () {
+
+    //$(".zz-modal").click(function() {
+    // $("#con-close-modal").modal('show');
+    //});
+
+    $('.con-close-modal').on('show.bs.modal', function (e) {
+      // console.log(e);
+      // console.log(e.relatedTarget);
+
+      var _button = $(e.relatedTarget); // Button that triggered the modal
+
+
+      var _row = _button.parents("tr");
+    });
+  });
+</script>
+{{!-- <script>
+
+ // $(document).ready(function () {
+
+    //$(".zz-modal").click(function() {
+    //  $("#con-close-modal").modal('show');
+    //});
+
+  //  $('#con-close-modal').on('show.bs.modal', function (e) {
+      // console.log(e);
+      // console.log(e.relatedTarget);
+
+     // var _button = $(e.relatedTarget); // Button that triggered the modal
+
+      // console.log(_button, _button.parents("tr"));
+     // var _row = _button.parents("tr");
+     // var _invoiceImt = _row.find(".invoice-imt").text();
+     // var _invoiceCmt = _row.find(".invoice-cmt").text(); ////invoice-cmt
+     // var _invoiceAmt = _row.find(".invoice-amt").text();
+     // var _chequeAmt = _row.find(".cheque-amt").text();
+      // console.log(_invoiceAmt, _chequeAmt);
+      //$(this).find(".invoice-imt").val(_invoiceImt);
+      //$(this).find(".invoice-cmt").val(_invoiceCmt);
+      //$(this).find(".invoice-amt").val(_invoiceAmt); //classname
+      //$(this).find(".cheque-amt").val(_chequeAmt); //date
+    });
+
+  });
+</script> --}}
+<script>
+  function getdata(id) {
+    var values = document.getElementById('status').value;
+    console.log(values)
+    console.log(id)
+  }
+
+</script>
+
+<script>
+  $(':radio').change(function () {
+    console.log('New star rating: ' + this.value);
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    var buttonAdd = $("#add-button2");
+    var buttonRemove = $("#remove-button2");
+    var className = ".dynamic-input2";
+    var count = 0;
+    var field = "";
+    var maxFields = 50;
+
+    function totalFields() {
+      return $(className).length;
+    }
+
+    function addNewField() {
+      count = totalFields() + 1;
+      field = $("#dynamic-input-2").clone();
+      field.attr("id", "dynamic-input-" + count);
+      field.children("label").text("Field " + count);
+      field.find("input").val("");
+      $(className + ":last").after($(field));
+    }
+
+    function removeLastField() {
+      if (totalFields() > 1) {
+        $(className + ":last").remove();
+      }
+    }
+
+    function enableButtonRemove() {
+      if (totalFields() === 2) {
+        buttonRemove.removeAttr("disabled");
+        buttonRemove.addClass("shadow-sm");
+      }
+    }
+
+    function disableButtonRemove() {
+      if (totalFields() === 1) {
+        buttonRemove.attr("disabled", "disabled");
+        buttonRemove.removeClass("shadow-sm");
+      }
+    }
+
+    function disableButtonAdd() {
+      if (totalFields() === maxFields) {
+        buttonAdd.attr("disabled", "disabled");
+        buttonAdd.removeClass("shadow-sm");
+      }
+    }
+
+    function enableButtonAdd() {
+      if (totalFields() === (maxFields - 1)) {
+        buttonAdd.removeAttr("disabled");
+        buttonAdd.addClass("shadow-sm");
+      }
+    }
+
+    buttonAdd.click(function () {
+      addNewField();
+      enableButtonRemove();
+      disableButtonAdd();
+    });
+
+    buttonRemove.click(function () {
+      removeLastField();
+      disableButtonRemove();
+      enableButtonAdd();
+    });
+  });
+</script>
